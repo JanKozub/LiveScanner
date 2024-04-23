@@ -1,35 +1,37 @@
 import tkinter as tk
-from tkinter import TOP
+from PIL import ImageTk
+import screenshotService
+import guiUtils
 
-
-def centerOnStart(win, w, h):
-    x = int((win.winfo_screenwidth() / 2) - (w / 2))
-    y = int((win.winfo_screenheight() / 2) - (h / 2))
-
-    win.geometry("{}x{}+{}+{}".format(w, h, x, y))
-
-
+screenshotService = screenshotService.ScreenshotService()
 window = tk.Tk()
+
 window.title("Live scanner")
 window.resizable(False, False)
-centerOnStart(window, 800, 600)
+guiUtils.centerOnStart(window, 800, 600)
 
 frame = tk.Frame(window)
-frame.place(in_=window, anchor="center", relx=.5, rely=.5)
+frame.pack(side=tk.BOTTOM)
 
 
 def takeAScreenshot():
-    print("1")
+    image = ImageTk.PhotoImage(screenshotService.take())
+    imagebox.config(image=image)
+    imagebox.image = image
+
+
+takeButton = tk.Button(frame, width=30, height=3, text="Take a screenshot", command=takeAScreenshot)
+takeButton.pack(side=tk.LEFT, padx=5, pady=5)
 
 
 def loadAnImage():
     print("2")
 
 
-button1 = tk.Button(frame, width=50, height=10, text="Take a screenshot", command=takeAScreenshot)
-button1.pack(side=TOP)
+loadButton = tk.Button(frame, width=30, height=3, text="Load an image", command=loadAnImage)
+loadButton.pack(side=tk.RIGHT, padx=5, pady=5)
 
-button2 = tk.Button(frame, width=50, height=10, text="Load an image", command=loadAnImage)
-button2.pack(side=TOP)
+imagebox = tk.Label(window, width=700, height=400, text="Image")
+imagebox.pack()
 
 window.mainloop()
