@@ -1,7 +1,6 @@
 import tkinter as tk
 from PIL import ImageTk
-import screenshotService
-import guiUtils
+from live_scanner.modules import screenshotService, guiUtils
 
 screenshotService = screenshotService.ScreenshotService()
 window = tk.Tk()
