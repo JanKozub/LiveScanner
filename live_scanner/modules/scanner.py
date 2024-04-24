@@ -6,6 +6,7 @@ class Scanner:
     def __init__(self):
         self.frameWidth = 1920
         self.frameHeight = 1080
+        self.edgeSize = 50
         self.old_coordinate_points = []
 
         self.video = cv2.VideoCapture(1)
@@ -66,18 +67,37 @@ class Scanner:
         matrix = cv2.getPerspectiveTransform(pts1, pts2)
         return cv2.warpPerspective(image, matrix, (self.frameWidth, self.frameHeight))
 
+    def postProcess(self, image):
+        rotatedImage = cv2.rotate(image, cv2.ROTATE_180)
+        return rotatedImage[
+               self.edgeSize:rotatedImage.shape[0] - self.edgeSize,
+               self.edgeSize:rotatedImage.shape[1] - self.edgeSize]  # cropping unclear edges
+
+    def processImage(self, image):
+        imgPreprocessed = self.preProcessing(image)
+        contours = self.getContours(imgPreprocessed)
+        imgWarp = self.getWarp(image, contours)
+        return self.postProcess(imgWarp)
+
+    @staticmethod
+    def getWritingFromImage(image):
+        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+        mask = cv2.bitwise_not(cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)[1])
+        return cv2.bitwise_and(gray, gray, mask=mask)
+
     def startScanner(self):
+        # image1 = cv2.imread('screenshot.png')
+        # image1 = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
+
         while True:
-            success, img = self.video.read()
+            image = self.video.read()[1]
+            processedImage = self.processImage(image)
+            writing = self.getWritingFromImage(processedImage)
+            cv2.imshow("Video", writing)
 
-            imgPreprocessed = self.preProcessing(img)
-            coord_points = self.getContours(imgPreprocessed)
-
-            imgWarp = self.getWarp(img, coord_points)
-
-            img_rotate_by_180 = cv2.rotate(imgWarp, cv2.ROTATE_180)
-
-            cv2.imshow("Video", img_rotate_by_180)
+            # writing = writing[0:image1.shape[0], 0: image1.shape[1]]
+            # mergedImages = cv2.addWeighted(image1, 0.5, writing, 0.5, 0.0)
+            # cv2.imshow("Video", mergedImages)
 
             if cv2.waitKey(10) & 0xFF == ord(' '):
                 break

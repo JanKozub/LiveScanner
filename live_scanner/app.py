@@ -21,7 +21,7 @@ frame.pack(side=tk.BOTTOM)
 
 
 def takeAScreenshot():
-    image = ImageTk.PhotoImage(screenshotService.take(window, screenshotWidth, screenshotHeight))
+    image = ImageTk.PhotoImage(screenshotService.take(screenshotWidth, screenshotHeight))
     imagebox.config(image=image)
     imagebox.image = image
 
