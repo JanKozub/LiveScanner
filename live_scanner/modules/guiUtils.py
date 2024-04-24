@@ -1,5 +1,15 @@
-def centerOnStart(win, w, h):
-    x = int((win.winfo_screenwidth() / 2) - (w / 2))
-    y = int((win.winfo_screenheight() / 2) - (h / 2))
+from screeninfo import get_monitors
 
-    win.geometry("{}x{}+{}+{}".format(w, h, x, y))
+
+def centerOnStart(win, windowWidth, windowHeight):
+    w, h = getScreenSize()
+    x = int((w / 2) - (windowWidth / 2))
+    y = int((h / 2) - (windowHeight / 2))
+
+    win.geometry("{}x{}+{}+{}".format(windowWidth, windowHeight, x, y))
+
+
+def getScreenSize():
+    for m in get_monitors():
+        if m.is_primary:
+            return m.width, m.height
