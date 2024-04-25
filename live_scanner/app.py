@@ -12,9 +12,8 @@ class GUI:
         self.lastDisplayedImage = None
         self.editLoopStopper = False
 
-        windowWidth = int(1920 * guiUtils.getScreenScale(self.window))
-        windowHeight = int(1080 * guiUtils.getScreenScale(self.window))
-        screenshotWidth, screenshotHeight = int(windowWidth * 0.9), int(((windowWidth * 0.8) / 16) * 9)
+        windowWidth = int(1800 * guiUtils.getScreenScale(self.window))
+        windowHeight = int(1400 * guiUtils.getScreenScale(self.window))
 
         self.window.title("Live scanner")
         self.window.resizable(False, False)
@@ -24,28 +23,29 @@ class GUI:
         frame = tk.Frame(self.window)
         frame.pack(side=tk.BOTTOM)
 
-        self.takeButton = tk.Button(frame, width=20, height=3, text="Take a screenshot",
-                                    command=lambda: self.takeAScreenshot(screenshotWidth, screenshotHeight))
+        self.takeButton = tk.Button(frame, width=15, height=3, text="Take a screenshot",
+                                    command=lambda: self.takeAScreenshot(int(windowWidth * 0.9)))
         self.takeButton.grid(row=0, column=0, padx=5, pady=5)
 
-        self.editButton = tk.Button(frame, width=20, height=3, text="Start Edit", command=self.startEditImage)
+        self.editButton = tk.Button(frame, width=15, height=3, text="Start Edit", command=self.startEditImage)
         self.editButton.grid(row=0, column=1, padx=5, pady=5)
 
-        self.saveButton = tk.Button(frame, width=20, height=3, text="Save", command=self.saveImage)
+        self.saveButton = tk.Button(frame, width=15, height=3, text="Save", command=self.saveImage)
         self.saveButton.grid(row=0, column=2, padx=5, pady=5)
 
-        self.loadButton = tk.Button(frame, width=20, height=3, text="Load", command=self.loadImage)
+        self.loadButton = tk.Button(frame, width=15, height=3, text="Load", command=self.loadImage)
         self.loadButton.grid(row=0, column=3, padx=5, pady=5)
 
-        self.imagebox = tk.Label(self.window, width=screenshotWidth, height=screenshotHeight, text="Image")
+        self.imagebox = tk.Label(self.window, width=90, height=80, text="Image")
+        self.imagebox.config(highlightbackground="white", highlightcolor="white", highlightthickness=2)
         self.imagebox.pack()
 
         self.window.mainloop()
 
-    def takeAScreenshot(self, w, h):
-        self.lastScreenshot = self.screenshotService.take(w, h)
+    def takeAScreenshot(self, frameWidth):
+        self.lastScreenshot = self.screenshotService.take(frameWidth)
         image = ImageTk.PhotoImage(self.lastScreenshot)
-        self.imagebox.config(image=image)
+        self.imagebox.config(image=image, width=image.width(), height=image.height())
         self.imagebox.image = image
 
     def loadImage(self):

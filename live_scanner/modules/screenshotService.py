@@ -7,11 +7,12 @@ class ScreenshotService:
 
         self.mss_obj = mss.mss()
 
-    def take(self, targetWidth, targetHeight):
+    def take(self, frameWidth):
         with self.mss_obj as sct:
             monitor = {"top": 0, "left": 0, "width": self.screen_width, "height": self.screen_height}
             raw = sct.grab(monitor)
 
             img = Image.frombytes("RGB", raw.size, raw.rgb)
-            img = img.resize((targetWidth, targetHeight))
+            height = int(frameWidth / img.width * img.height)
+            img = img.resize((frameWidth, height))
             return img
