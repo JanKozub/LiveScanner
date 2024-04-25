@@ -4,17 +4,11 @@ import numpy as np
 
 class Scanner:
     def __init__(self):
+        self.video = None
         self.frameWidth = 1920
         self.frameHeight = 1080
         self.edgeSize = 50
         self.old_coordinate_points = []
-
-        self.video = cv2.VideoCapture(1)
-        self.video.set(3, self.frameWidth)
-        self.video.set(4, self.frameHeight)
-        self.video.set(100, 150)
-
-        self.current_image = self.video.read()
 
     @staticmethod
     def preProcessing(image):
@@ -83,25 +77,24 @@ class Scanner:
     def getWritingFromImage(image):
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         mask = cv2.bitwise_not(cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)[1])
-        return cv2.bitwise_and(gray, gray, mask=mask)
+        final = cv2.bitwise_and(gray, gray, mask=mask)
+        return cv2.cvtColor(final, cv2.COLOR_GRAY2RGB)
 
     def startScanner(self):
-        # image1 = cv2.imread('screenshot.png')
-        # image1 = cv2.cvtColor(image1, cv2.COLOR_BGR2GRAY)
+        self.video = cv2.VideoCapture(1)
+        self.video.set(3, self.frameWidth)
+        self.video.set(4, self.frameHeight)
+        self.video.set(100, 150)
 
-        while True:
-            image = self.video.read()[1]
-            processedImage = self.processImage(image)
-            writing = self.getWritingFromImage(processedImage)
-            cv2.imshow("Video", writing)
+    def getImage(self):
+        image = self.video.read()[1]
+        processedImage = self.processImage(image)
+        writing = self.getWritingFromImage(processedImage)
+        return writing
 
-            # writing = writing[0:image1.shape[0], 0: image1.shape[1]]
-            # mergedImages = cv2.addWeighted(image1, 0.5, writing, 0.5, 0.0)
-            # cv2.imshow("Video", mergedImages)
-
-            if cv2.waitKey(10) & 0xFF == ord(' '):
-                break
-
-
-scanner = Scanner()
-scanner.startScanner()
+    @staticmethod
+    def mergeImages(image1, image2):
+        image1 = cv2.cvtColor(np.array(image1), cv2.COLOR_RGB2RGBA)
+        image2 = cv2.cvtColor(np.array(image2), cv2.COLOR_RGB2RGBA)
+        image2 = image2[0:image1.shape[0], 0: image1.shape[1]]
+        return cv2.addWeighted(image1, 1, image2, 1, 0.0)

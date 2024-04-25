@@ -1,8 +1,7 @@
-from screeninfo import get_monitors
-
+from PIL import ImageGrab
 
 def centerOnStart(win, windowWidth, windowHeight):
-    w, h = getScreenSize()
+    w, h = getScreenSize()[0] * getScreenScale(win), getScreenSize()[1] * getScreenScale(win)
     x = int((w / 2) - (windowWidth / 2))
     y = int((h / 2) - (windowHeight / 2))
 
@@ -10,6 +9,7 @@ def centerOnStart(win, windowWidth, windowHeight):
 
 
 def getScreenSize():
-    for m in get_monitors():
-        if m.is_primary:
-            return m.width, m.height
+    return ImageGrab.grab().size
+
+def getScreenScale(window):
+    return window.winfo_screenwidth() / getScreenSize()[0]
