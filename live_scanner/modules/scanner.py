@@ -86,6 +86,10 @@ class Scanner:
         self.video.set(4, self.frameHeight)
         self.video.set(100, 150)
 
+    def stopScanner(self):
+        cv2.destroyAllWindows()
+        self.video = None
+
     def getImage(self):
         image = self.video.read()[1]
         processedImage = self.processImage(image)
