@@ -37,29 +37,26 @@ class GUI:
 
         self.window.mainloop()
 
+    def takeAScreenshot(self, w, h):
+        self.displayedImage = self.screenshotService.take(w, h)
+        image = ImageTk.PhotoImage(self.displayedImage)
+        self.imagebox.config(image=image)
+        self.imagebox.image = image
 
-def takeAScreenshot(self, w, h):
-    self.displayedImage = self.screenshotService.take(w, h)
-    image = ImageTk.PhotoImage(self.displayedImage)
-    self.imagebox.config(image=image)
-    self.imagebox.image = image
+    def loadImage(self):
+        print("load")
 
+    def editImage(self):
+        if self.displayedImage is not None:
+            self.scanner.startScanner()
+            capturedImage = Image.fromarray(self.scanner.getImage())
+            mergedImages = Image.fromarray(self.scanner.mergeImages(self.displayedImage, capturedImage))
 
-def loadImage(self):
-    print("load")
+            frame = ImageTk.PhotoImage(image=mergedImages)
+            self.imagebox.config(image=frame)
+            self.imagebox.image = frame
 
-
-def editImage(self):
-    if self.displayedImage is not None:
-        self.scanner.startScanner()
-        capturedImage = Image.fromarray(self.scanner.getImage())
-        mergedImages = Image.fromarray(self.scanner.mergeImages(self.displayedImage, capturedImage))
-
-        frame = ImageTk.PhotoImage(image=mergedImages)
-        self.imagebox.config(image=frame)
-        self.imagebox.image = frame
-
-        self.imagebox.after(10, self.editImage)
+            self.imagebox.after(10, self.editImage)
 
 
 gui = GUI()
