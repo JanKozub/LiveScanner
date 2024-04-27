@@ -1,5 +1,6 @@
 from PIL import ImageGrab
 
+
 def centerOnStart(win, windowWidth, windowHeight):
     w, h = getScreenSize()[0] * getScreenScale(win), getScreenSize()[1] * getScreenScale(win)
     x = int((w / 2) - (windowWidth / 2))
@@ -11,5 +12,11 @@ def centerOnStart(win, windowWidth, windowHeight):
 def getScreenSize():
     return ImageGrab.grab().size
 
+
 def getScreenScale(window):
     return window.winfo_screenwidth() / getScreenSize()[0]
+
+
+def clearLayout(window):
+    for widget in window.winfo_children():
+        widget.pack_forget()

@@ -21,26 +21,27 @@ class GUI:
         self.window.title("Live scanner")
         self.window.resizable(False, False)
 
-        self.imagebox = None
-        self.canvas = None
-        self.rect = None
+        screen_width = self.window.winfo_screenwidth()
+        screen_height = self.window.winfo_screenheight()
+
+        self.imagebox = tk.Label(self.window, width=90, height=80, text="Image")
+        self.canvas = tk.Canvas(self.window, width=screen_width, height=screen_height, bg='#000000')
+        self.rect = self.canvas.create_rectangle(0, 0, 0, 0, fill="red")
         self.isMousePressed = False
-        self.startSelectPosition = (0, 0)
         self.isSelectionStarted = False
-        self.mouseListener = mouse.Listener(
-            on_move=self.onMouseMove,
-            on_click=self.onMouseClick)
-        self.mouseListener.start()
+        self.startSelectPosition = (-1, -1)
+        self.mouseListener = None
 
         self.createDefaultLayout()
         self.window.mainloop()
 
     def createDefaultLayout(self):
+        self.window.overrideredirect(False)
+        self.window.wm_state("normal")
         guiUtils.centerOnStart(self.window, self.windowWidth, self.windowHeight)
         frame = tk.Frame(self.window)
         frame.pack(side=tk.BOTTOM)
 
-        self.imagebox = tk.Label(self.window, width=90, height=80, text="Image")
         self.imagebox.config(highlightbackground="white", highlightcolor="white", highlightthickness=2)
         self.imagebox.pack()
 
@@ -66,26 +67,26 @@ class GUI:
         self.window.config(bg="black")
         self.window.attributes("-alpha", 1)
 
-    def clearLayout(self):
-        for widget in self.window.winfo_children():
-            widget.destroy()
+    def startMouseEvent(self):
+        self.mouseListener = mouse.Listener(on_move=self.onMouseMove, on_click=self.onMouseClick)
+        self.mouseListener.start()
 
     def takeAScreenshot(self, fromX, fromY, toX, toY):
         self.lastScreenshot = self.screenshotService.take(fromX, fromY, toX, toY)
+        self.changeImage(self.lastScreenshot)
         image = ImageTk.PhotoImage(self.lastScreenshot)
-        self.imagebox.config(image=image, width=image.width(), height=image.height())
-        self.imagebox.image = image
 
     def onMouseMove(self, xPos, yPos):
         if self.isMousePressed:
             self.canvas.coords(self.rect, self.startSelectPosition[0], self.startSelectPosition[0], xPos, yPos)
-
             self.isSelectionStarted = True
-        elif self.isSelectionStarted is True:
+        elif self.isSelectionStarted:
             self.isSelectionStarted = False
-            self.clearLayout()
+            self.startSelectPosition = (-1, -1)
+            guiUtils.clearLayout(self.window)
             self.createDefaultLayout()
             self.takeAScreenshot(self.startSelectPosition[0], self.startSelectPosition[1], xPos, yPos)
+            self.mouseListener.stop()
 
     def onMouseClick(self, mouse_position_x, mouse_position_y, button, is_pressed):
         if button == button.left:
@@ -95,7 +96,7 @@ class GUI:
                 self.startSelectPosition = (mouse_position_x, mouse_position_y)
 
     def takeACropScreenshot(self):
-        self.clearLayout()
+        guiUtils.clearLayout(self.window)
 
         self.window.overrideredirect(True)
         self.window.wm_state("zoomed")
@@ -103,13 +104,14 @@ class GUI:
         screen_height = self.window.winfo_screenheight()
 
         self.window.geometry(f"{screen_width}x{screen_height}+0+0")
-        self.canvas = tk.Canvas(self.window, width=screen_width, height=screen_height, bg='#000000')
         self.canvas.configure(bg="white")
+        self.canvas.coords(self.rect, 0, 0, 0, 0)
         self.canvas.pack()
-        self.rect = self.canvas.create_rectangle(0, 0, 0, 0, fill="red")
 
         self.window.config(bg="white")
         self.window.attributes("-alpha", 0.25)
+
+        self.startMouseEvent()
 
     def loadImage(self):
         print("load")
@@ -134,10 +136,13 @@ class GUI:
         mergedImages = Image.fromarray(self.scanner.mergeImages(self.lastScreenshot, capturedImage))
         self.lastDisplayedImage = mergedImages
 
-        frame = ImageTk.PhotoImage(image=mergedImages)
-        self.imagebox.config(image=frame)
-        self.imagebox.image = frame
+        self.changeImage(mergedImages)
         self.imagebox.after(10, lambda: self.editLoop())
+
+    def changeImage(self, image):
+        img = ImageTk.PhotoImage(image=image)
+        self.imagebox.config(image=img, width=img.width(), height=img.height())
+        self.imagebox.image = img
 
     def saveImage(self):
         self.lastDisplayedImage.save("screenshot.png")
