@@ -3,3 +3,5 @@ opencv-python~=4.8.0
 mss~=9.0.1
 pillow~=10.3.0
 PyAutoGUI~=0.9.54
+pynput~=1.7.6
+pyglet~=2.0.15
