@@ -4,17 +4,23 @@ from live_scanner.modules import guiUtils
 
 
 class ScreenshotService:
-    def __init__(self, frameWidth):
+    def __init__(self, frameWidth, frameHeight):
         self.screen_width, self.screen_height = guiUtils.getScreenSize()
         self.mss_obj = mss.mss()
         self.frameWidth = frameWidth
+        self.frameHeight = frameHeight
 
     def take(self, fromX, fromY, toX, toY):
         with self.mss_obj as sct:
             monitor = {"top": fromY, "left": fromX, "width": toX, "height": toY}
             raw = sct.grab(monitor)
-
             img = Image.frombytes("RGB", raw.size, raw.rgb)
-            height = int(self.frameWidth / img.width * img.height)
-            img = img.resize((self.frameWidth, height))
+
+            if img.width > self.frameWidth:
+                height = int(self.frameWidth / img.width * img.height)
+                img = img.resize((self.frameWidth, height))
+            elif img.height > self.frameHeight:
+                width = int(self.frameHeight / img.height * img.width)
+                img = img.resize((self.frameHeight, width))
+
             return img

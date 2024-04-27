@@ -6,20 +6,16 @@ from pynput import mouse
 
 class GUI:
     def __init__(self):
-        # self.windowWidth = int(1800 * guiUtils.getScreenScale(self.window))
-        # self.windowHeight = int(1400 * guiUtils.getScreenScale(self.window))
-        self.windowWidth = 800
-        self.windowHeight = 600
-
         self.window = tk.Tk()
-        self.screenshotService = screenshotService.ScreenshotService(int(self.windowWidth * 0.9))
+        self.windowWidth = int(1800 * guiUtils.getScreenScale(self.window))
+        self.windowHeight = int(1400 * guiUtils.getScreenScale(self.window))
+        self.screenshotService = screenshotService.ScreenshotService(int(self.windowWidth * 0.9), int(self.windowHeight * 0.9))
         self.scanner = scanner.Scanner()
         self.lastScreenshot = None
         self.lastDisplayedImage = None
         self.editLoopStopper = False
 
         self.window.title("Live scanner")
-        self.window.resizable(False, False)
 
         screen_width = self.window.winfo_screenwidth()
         screen_height = self.window.winfo_screenheight()
@@ -29,7 +25,7 @@ class GUI:
         self.rect = self.canvas.create_rectangle(0, 0, 0, 0, fill="red")
         self.isMousePressed = False
         self.isSelectionStarted = False
-        self.startSelectPosition = (-1, -1)
+        self.startSelectPosition = (0, 0)
         self.mouseListener = None
 
         self.createDefaultLayout()
@@ -45,10 +41,9 @@ class GUI:
         self.imagebox.config(highlightbackground="white", highlightcolor="white", highlightthickness=2)
         self.imagebox.pack()
 
+        screenSize = guiUtils.getScreenSize()
         takeButton = tk.Button(frame, width=13, height=3, text="Take a screenshot",
-                               command=lambda: self.takeAScreenshot(0, 0,
-                                                                    guiUtils.getScreenSize()[0],
-                                                                    guiUtils.getScreenSize()[1]))
+                               command=lambda: self.takeAScreenshot(0, 0,screenSize[0],screenSize[1]))
         takeButton.grid(row=0, column=0, padx=5, pady=5)
 
         cropButton = tk.Button(frame, width=13, height=3, text="Crop screenshot", command=self.takeACropScreenshot)
@@ -64,7 +59,7 @@ class GUI:
         saveButton = tk.Button(frame, width=13, height=3, text="Save", command=self.saveImage)
         saveButton.grid(row=0, column=4, padx=5, pady=5)
 
-        self.window.config(bg="black")
+        self.window.config(bg="systemWindowBackgroundColor")
         self.window.attributes("-alpha", 1)
 
     def startMouseEvent(self):
@@ -74,15 +69,13 @@ class GUI:
     def takeAScreenshot(self, fromX, fromY, toX, toY):
         self.lastScreenshot = self.screenshotService.take(fromX, fromY, toX, toY)
         self.changeImage(self.lastScreenshot)
-        image = ImageTk.PhotoImage(self.lastScreenshot)
 
     def onMouseMove(self, xPos, yPos):
         if self.isMousePressed:
-            self.canvas.coords(self.rect, self.startSelectPosition[0], self.startSelectPosition[0], xPos, yPos)
+            self.canvas.coords(self.rect, self.startSelectPosition[0], self.startSelectPosition[1], xPos, yPos)
             self.isSelectionStarted = True
         elif self.isSelectionStarted:
             self.isSelectionStarted = False
-            self.startSelectPosition = (-1, -1)
             guiUtils.clearLayout(self.window)
             self.createDefaultLayout()
             self.takeAScreenshot(self.startSelectPosition[0], self.startSelectPosition[1], xPos, yPos)
