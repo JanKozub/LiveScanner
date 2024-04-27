@@ -4,11 +4,11 @@ from live_scanner.modules import guiUtils
 
 
 class ScreenshotService:
-    def __init__(self, frameWidth, frameHeight):
+    def __init__(self, windowWidth, windowHeight):
         self.screen_width, self.screen_height = guiUtils.getScreenSize()
         self.mss_obj = mss.mss()
-        self.frameWidth = frameWidth
-        self.frameHeight = frameHeight
+        self.frameWidth = int(windowWidth * 0.9)
+        self.frameHeight = int(windowHeight * 0.9)
 
     def take(self, fromX, fromY, toX, toY):
         with self.mss_obj as sct:

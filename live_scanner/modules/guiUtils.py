@@ -1,4 +1,4 @@
-from PIL import ImageGrab
+from PIL import ImageGrab, ImageTk
 
 
 def centerOnStart(win, windowWidth, windowHeight):
@@ -20,3 +20,13 @@ def getScreenScale(window):
 def clearLayout(window):
     for widget in window.winfo_children():
         widget.pack_forget()
+
+
+def changeImage(image, imagebox):
+    img = ImageTk.PhotoImage(image=image)
+    imagebox.config(image=img, width=img.width(), height=img.height())
+    imagebox.image = img
+
+
+def saveImage(image):
+    image.save("screenshot.png")

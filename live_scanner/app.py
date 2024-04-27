@@ -1,5 +1,5 @@
 import tkinter as tk
-from PIL import Image, ImageTk
+from PIL import Image
 from live_scanner.modules import screenshotService, guiUtils, scanner
 from pynput import mouse
 
@@ -9,10 +9,9 @@ class GUI:
         self.window = tk.Tk()
         self.windowWidth = int(1800 * guiUtils.getScreenScale(self.window))
         self.windowHeight = int(1400 * guiUtils.getScreenScale(self.window))
-        self.screenshotService = screenshotService.ScreenshotService(int(self.windowWidth * 0.9), int(self.windowHeight * 0.9))
+        self.screenshotService = screenshotService.ScreenshotService(self.windowWidth, self.windowHeight)
         self.scanner = scanner.Scanner()
-        self.lastScreenshot = None
-        self.lastDisplayedImage = None
+        self.lastScreenshot = self.lastDisplayedImage = None
         self.editLoopStopper = False
 
         self.window.title("Live scanner")
@@ -20,11 +19,10 @@ class GUI:
         screen_width = self.window.winfo_screenwidth()
         screen_height = self.window.winfo_screenheight()
 
-        self.imagebox = tk.Label(self.window, width=90, height=80, text="Image")
+        self.imagebox = tk.Label(self.window, width=90, height=80)
         self.canvas = tk.Canvas(self.window, width=screen_width, height=screen_height, bg='#000000')
         self.rect = self.canvas.create_rectangle(0, 0, 0, 0, fill="red")
-        self.isMousePressed = False
-        self.isSelectionStarted = False
+        self.isMousePressed = self.isSelectionStarted = False
         self.startSelectPosition = (0, 0)
         self.mouseListener = None
 
@@ -43,7 +41,7 @@ class GUI:
 
         screenSize = guiUtils.getScreenSize()
         takeButton = tk.Button(frame, width=13, height=3, text="Take a screenshot",
-                               command=lambda: self.takeAScreenshot(0, 0,screenSize[0],screenSize[1]))
+                               command=lambda: self.takeAScreenshot(0, 0, screenSize[0], screenSize[1]))
         takeButton.grid(row=0, column=0, padx=5, pady=5)
 
         cropButton = tk.Button(frame, width=13, height=3, text="Crop screenshot", command=self.takeACropScreenshot)
@@ -56,7 +54,8 @@ class GUI:
                                command=lambda: self.startEditImage(editButton))
         editButton.grid(row=0, column=3, padx=5, pady=5)
 
-        saveButton = tk.Button(frame, width=13, height=3, text="Save", command=self.saveImage)
+        saveButton = tk.Button(frame, width=13, height=3, text="Save",
+                               command=lambda: guiUtils.saveImage(self.lastDisplayedImage))
         saveButton.grid(row=0, column=4, padx=5, pady=5)
 
         self.window.config(bg="systemWindowBackgroundColor")
@@ -68,7 +67,7 @@ class GUI:
 
     def takeAScreenshot(self, fromX, fromY, toX, toY):
         self.lastScreenshot = self.screenshotService.take(fromX, fromY, toX, toY)
-        self.changeImage(self.lastScreenshot)
+        guiUtils.changeImage(self.lastScreenshot, self.imagebox)
 
     def onMouseMove(self, xPos, yPos):
         if self.isMousePressed:
@@ -129,16 +128,8 @@ class GUI:
         mergedImages = Image.fromarray(self.scanner.mergeImages(self.lastScreenshot, capturedImage))
         self.lastDisplayedImage = mergedImages
 
-        self.changeImage(mergedImages)
+        guiUtils.changeImage(mergedImages, self.imagebox)
         self.imagebox.after(10, lambda: self.editLoop())
-
-    def changeImage(self, image):
-        img = ImageTk.PhotoImage(image=image)
-        self.imagebox.config(image=img, width=img.width(), height=img.height())
-        self.imagebox.image = img
-
-    def saveImage(self):
-        self.lastDisplayedImage.save("screenshot.png")
 
 
 gui = GUI()
