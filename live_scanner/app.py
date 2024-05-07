@@ -9,7 +9,7 @@ class GUI:
         self.window = tk.Tk()
         self.windowWidth = int(1800 * guiUtils.getScreenScale(self.window))
         self.windowHeight = int(1400 * guiUtils.getScreenScale(self.window))
-        self.screenshotService = screenshotService.ScreenshotService(self.windowWidth, self.windowHeight)
+        self.screenshotService = screenshotService.ScreenshotService(self.windowWidth, self.windowHeight, self.window)
         self.scanner = scanner.Scanner()
         self.lastScreenshot = self.lastDisplayedImage = None
         self.editLoopStopper = False
