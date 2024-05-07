@@ -8,8 +8,8 @@ class Scanner:
         self.video = None
         self.frameWidth = 1920
         self.frameHeight = 1080
-        self.edgeSize = 50
-        self.old_coordinate_points = []
+        self.edgeSize = 0
+        self.oldCoordinates = []
 
     @staticmethod
     def preProcessing(image):
@@ -24,8 +24,8 @@ class Scanner:
         return imgErode
 
     @staticmethod
-    def getContours(image):  # find the biggest area inside contours to find the white paper
-        biggest = np.array([])
+    def getCornerPoints(image):  # find corners of the biggest area inside contours to find the white paper
+        cornerPointsOfMaxArea = np.array([])
         maxArea = 0
         contours, hierarchy = cv2.findContours(image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
 
@@ -35,22 +35,22 @@ class Scanner:
                 peri = cv2.arcLength(cnt, True)  # perimeter of the closed shape
                 cornerPoints = cv2.approxPolyDP(cnt, 0.01 * peri, True)
                 if area > maxArea and len(cornerPoints) == 4:
-                    biggest = cornerPoints
+                    cornerPointsOfMaxArea = cornerPoints
                     maxArea = area
 
-        return biggest
+        return cornerPointsOfMaxArea
 
-    def getWarp(self, image, page_coord_points):
-        if not page_coord_points.any():  # when object's perimeter is partly covered
-            prev_coord_points = self.old_coordinate_points[:]
+    def getWarp(self, image, pageCoordinates):
+        if not pageCoordinates.any():  # when object's perimeter is partly covered
+            prev_coord_points = self.oldCoordinates[:]
 
             if len(prev_coord_points) < 1:
                 return image
 
             image = self.setPerspective(image, prev_coord_points)
         else:
-            new_coord_points = np.reshape(page_coord_points, (4, 2))
-            self.old_coordinate_points = new_coord_points[:]
+            new_coord_points = np.reshape(pageCoordinates, (4, 2))
+            self.oldCoordinates = new_coord_points[:]
 
             image = self.setPerspective(image, new_coord_points)
 
@@ -70,7 +70,7 @@ class Scanner:
 
     def processImage(self, image):
         imgPreprocessed = self.preProcessing(image)
-        contours = self.getContours(imgPreprocessed)
+        contours = self.getCornerPoints(imgPreprocessed)
         imgWarp = self.getWarp(image, contours)
         return self.postProcess(imgWarp)
 
@@ -94,8 +94,7 @@ class Scanner:
     def getImage(self):
         image = self.video.read()[1]
         processedImage = self.processImage(image)
-        writing = self.getWritingFromImage(processedImage)
-        return writing
+        return self.getWritingFromImage(processedImage)
 
     @staticmethod
     def mergeImages(bottomLayer: PIL.Image, topLayer: PIL.Image):
