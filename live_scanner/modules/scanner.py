@@ -6,10 +6,10 @@ import numpy as np
 class Scanner:
     def __init__(self):
         self.video = None
-        self.frameWidth = 1920
-        self.frameHeight = 1080
-        self.edgeSize = 0
-        self.oldCoordinates = []
+        self.frameWidth: int = 1920
+        self.frameHeight: int = 1080
+        self.edgeSize: int = 0
+        self.oldCoordinates: list = []
 
     @staticmethod
     def preProcessing(image):

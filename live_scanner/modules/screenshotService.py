@@ -1,17 +1,19 @@
+import tkinter
+
 import mss as mss
 from PIL import Image
 from live_scanner.modules import guiUtils
 
 
 class ScreenshotService:
-    def __init__(self, windowWidth, windowHeight, window):
+    def __init__(self, windowWidth: int, windowHeight: int, window: tkinter.Tk):
         self.screen_width, self.screen_height = guiUtils.getScreenSize()
-        self.screen_scale = guiUtils.getScreenScale(window)
-        self.mss_obj = mss.mss()
-        self.frameWidth = int(windowWidth * 0.9)
-        self.frameHeight = int(windowHeight * 0.9)
+        self.screen_scale: float = guiUtils.getScreenScale(window)
+        self.mss_obj: mss = mss.mss()
+        self.frameWidth: int = int(windowWidth * 0.9)
+        self.frameHeight: int = int(windowHeight * 0.9)
 
-    def take(self, fromX, fromY, toX, toY):
+    def take(self, fromX: int, fromY: int, toX: int, toY: int):
         with self.mss_obj as sct:
             monitor = {"top": fromY * self.screen_scale, "left": fromX * self.screen_scale,
                        "width": toX * self.screen_scale, "height": toY * self.screen_scale}

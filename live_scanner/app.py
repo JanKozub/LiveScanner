@@ -1,30 +1,34 @@
 import tkinter as tk
 from PIL import Image
-from live_scanner.modules import screenshotService, guiUtils, scanner
+from live_scanner.modules import guiUtils
+from live_scanner.modules.screenshotService import ScreenshotService as ScreenshotService
+from live_scanner.modules.scanner import Scanner as Scanner
 from pynput import mouse
 
 
 class GUI:
     def __init__(self):
-        self.window = tk.Tk()
-        self.windowWidth = int(1800 * guiUtils.getScreenScale(self.window))
-        self.windowHeight = int(1400 * guiUtils.getScreenScale(self.window))
-        self.screenshotService = screenshotService.ScreenshotService(self.windowWidth, self.windowHeight, self.window)
-        self.scanner = scanner.Scanner()
-        self.lastScreenshot = self.lastDisplayedImage = None
-        self.editLoopStopper = False
+        self.window: tk.Tk = tk.Tk()
+        self.windowWidth: int = int(1800 * guiUtils.getScreenScale(self.window))
+        self.windowHeight: int = int(1400 * guiUtils.getScreenScale(self.window))
+        self.screenshotService: ScreenshotService = ScreenshotService(self.windowWidth, self.windowHeight, self.window)
+        self.scanner: Scanner = Scanner()
+        self.lastScreenshot: tk.Image
+        self.lastDisplayedImage: tk.Image
+        self.editLoopStopper: bool = False
 
         self.window.title("Live scanner")
 
-        screen_width = self.window.winfo_screenwidth()
-        screen_height = self.window.winfo_screenheight()
+        screen_width: int = self.window.winfo_screenwidth()
+        screen_height: int = self.window.winfo_screenheight()
 
-        self.imagebox = tk.Label(self.window, width=90, height=80)
-        self.canvas = tk.Canvas(self.window, width=screen_width, height=screen_height, bg='#000000')
-        self.rect = self.canvas.create_rectangle(0, 0, 0, 0, fill="red")
-        self.isMousePressed = self.isSelectionStarted = False
-        self.startSelectPosition = (0, 0)
-        self.mouseListener = None
+        self.imagebox: tk.Label = tk.Label(self.window, width=90, height=80)
+        self.canvas: tk.Canvas = tk.Canvas(self.window, width=screen_width, height=screen_height, bg='#000000')
+        self.rect: int = self.canvas.create_rectangle(0, 0, 0, 0, fill="red")
+        self.isMousePressed: bool = False
+        self.isSelectionStarted: bool = False
+        self.startSelectPosition: tuple[int, int] = (0, 0)
+        self.mouseListener: mouse.Listener
 
         self.createDefaultLayout()
         self.window.mainloop()
@@ -33,7 +37,7 @@ class GUI:
         self.window.overrideredirect(False)
         self.window.wm_state("normal")
         guiUtils.centerOnStart(self.window, self.windowWidth, self.windowHeight)
-        frame = tk.Frame(self.window)
+        frame: tk.Frame = tk.Frame(self.window)
         frame.pack(side=tk.BOTTOM)
 
         self.imagebox.config(highlightbackground="white", highlightcolor="white", highlightthickness=2)
@@ -65,11 +69,11 @@ class GUI:
         self.mouseListener = mouse.Listener(on_move=self.onMouseMove, on_click=self.onMouseClick)
         self.mouseListener.start()
 
-    def takeAScreenshot(self, fromX, fromY, toX, toY):
+    def takeAScreenshot(self, fromX: int, fromY: int, toX: int, toY: int):
         self.lastScreenshot = self.screenshotService.take(fromX, fromY, toX, toY)
         guiUtils.changeImage(self.lastScreenshot, self.imagebox)
 
-    def onMouseMove(self, xPos, yPos):
+    def onMouseMove(self, xPos: int, yPos: int):
         if self.isMousePressed:
             self.canvas.coords(self.rect, self.startSelectPosition[0], self.startSelectPosition[1], xPos, yPos)
             self.isSelectionStarted = True
@@ -80,7 +84,7 @@ class GUI:
             self.takeAScreenshot(self.startSelectPosition[0], self.startSelectPosition[1], xPos, yPos)
             self.mouseListener.stop()
 
-    def onMouseClick(self, mouse_position_x, mouse_position_y, button, is_pressed):
+    def onMouseClick(self, mouse_position_x: int, mouse_position_y: int, button: mouse.Button, is_pressed: bool):
         if button == button.left:
             self.isMousePressed = is_pressed
 
@@ -108,14 +112,14 @@ class GUI:
     def loadImage(self):
         print("load")
 
-    def startEditImage(self, button):
+    def startEditImage(self, button: tk.Button):
         if self.lastScreenshot is not None:
             self.scanner.startScanner()
             self.editLoopStopper = False
             button.config(text="Stop Edit", command=lambda: self.stopEditImage(button))
             self.editLoop()
 
-    def stopEditImage(self, button):
+    def stopEditImage(self, button: tk.Button):
         self.scanner.stopScanner()
         self.editLoopStopper = True
         button.config(text="Start Edit", command=lambda: self.startEditImage(button))
