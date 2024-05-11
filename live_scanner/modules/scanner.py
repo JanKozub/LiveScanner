@@ -1,4 +1,4 @@
-import PIL.Image
+from PIL import Image
 import cv2
 import numpy as np
 
@@ -97,7 +97,7 @@ class Scanner:
         return self.getWritingFromImage(processedImage)
 
     @staticmethod
-    def mergeImages(bottomLayer: PIL.Image, topLayer: PIL.Image):
+    def mergeImages(bottomLayer: Image, topLayer: Image):
         bottomLayer = cv2.cvtColor(np.array(bottomLayer), cv2.COLOR_RGB2RGBA)
         topLayer = cv2.cvtColor(np.array(topLayer), cv2.COLOR_RGB2RGBA)
 

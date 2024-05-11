@@ -1,12 +1,11 @@
-import tkinter
-
+from tkinter import Tk, Label
 import mss as mss
 from PIL import Image
 from live_scanner.modules import guiUtils
 
 
 class ScreenshotService:
-    def __init__(self, window: tkinter.Tk, imagebox: tkinter.Label):
+    def __init__(self, window: Tk, imagebox: Label):
         self.screen_width, self.screen_height = guiUtils.getScreenSize()
         self.screen_scale: float = guiUtils.getScreenScale(window)
         self.mss_obj: mss = mss.mss()

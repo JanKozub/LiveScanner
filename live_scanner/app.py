@@ -1,4 +1,4 @@
-import tkinter as tk
+from tkinter import Tk, Image, Label, Button, Canvas, Frame, BOTTOM
 from PIL import Image
 from live_scanner.modules import guiUtils
 from live_scanner.modules.screenshotService import ScreenshotService as ScreenshotService
@@ -8,12 +8,12 @@ from pynput import mouse
 
 class GUI:
     def __init__(self):
-        self.window: tk.Tk = tk.Tk()
+        self.window: Tk = Tk()
         self.windowWidth: int = int(1800 * guiUtils.getScreenScale(self.window))
         self.windowHeight: int = int(1400 * guiUtils.getScreenScale(self.window))
         self.scanner: Scanner = Scanner()
-        self.lastScreenshot: tk.Image = None
-        self.lastDisplayedImage: tk.Image = None
+        self.lastScreenshot: Image = None
+        self.lastDisplayedImage: Image = None
         self.editLoopStopper: bool = False
 
         self.window.title("Live scanner")
@@ -21,8 +21,8 @@ class GUI:
         screen_width: int = self.window.winfo_screenwidth()
         screen_height: int = self.window.winfo_screenheight()
 
-        self.imagebox: tk.Label = tk.Label(self.window, width=90, height=80)
-        self.canvas: tk.Canvas = tk.Canvas(self.window, width=screen_width, height=screen_height, bg='#000000')
+        self.imagebox: Label = Label(self.window, width=90, height=80)
+        self.canvas: Canvas = Canvas(self.window, width=screen_width, height=screen_height, bg='#000000')
         self.rect: int = self.canvas.create_rectangle(0, 0, 0, 0, fill="red")
         self.window.bind('<Configure>', self.updateScreenshotSize)
         self.isMousePressed: bool = False
@@ -38,36 +38,36 @@ class GUI:
     def updateScreenshotSize(self, event):
         self.imagebox.configure(height=event.width)
         if self.lastScreenshot is not None:
-            img = guiUtils.resizeImageToParentSize(self.lastScreenshot, self.imagebox.winfo_width(), self.imagebox.winfo_height())
+            img = guiUtils.resizeImageToParentSize(self.lastScreenshot, self.imagebox.winfo_width(),
+                                                   self.imagebox.winfo_height())
             guiUtils.changeImage(img, self.imagebox)
 
     def createDefaultLayout(self):
         self.window.overrideredirect(False)
         self.window.wm_state("normal")
         guiUtils.centerOnStart(self.window, self.windowWidth, self.windowHeight)
-        frame: tk.Frame = tk.Frame(self.window)
-        frame.pack(side=tk.BOTTOM)
+        frame: Frame = Frame(self.window)
+        frame.pack(side=BOTTOM)
 
         self.imagebox.config(highlightbackground="white", highlightcolor="white", highlightthickness=2)
         self.imagebox.pack(side="top", fill="x", expand=False)
 
         screenSize = guiUtils.getScreenSize()
-        takeButton = tk.Button(frame, width=13, height=3, text="Take a screenshot",
-                               command=lambda: self.takeAScreenshot(0, 0, screenSize[0], screenSize[1]))
+        takeButton = Button(frame, width=13, height=3, text="Take a screenshot",
+                            command=lambda: self.takeAScreenshot(0, 0, screenSize[0], screenSize[1]))
         takeButton.grid(row=0, column=0, padx=5, pady=5)
 
-        cropButton = tk.Button(frame, width=13, height=3, text="Crop screenshot", command=self.takeACropScreenshot)
+        cropButton = Button(frame, width=13, height=3, text="Crop screenshot", command=self.takeACropScreenshot)
         cropButton.grid(row=0, column=1, padx=5, pady=5)
 
-        loadButton = tk.Button(frame, width=13, height=3, text="Load screenshot", command=self.loadImage)
+        loadButton = Button(frame, width=13, height=3, text="Load screenshot", command=self.loadImage)
         loadButton.grid(row=0, column=2, padx=5, pady=5)
 
-        editButton = tk.Button(frame, width=13, height=3, text="Start Edit",
-                               command=lambda: self.startEditImage(editButton))
+        editButton = Button(frame, width=13, height=3, text="Start Edit", command=lambda: self.startEdit(editButton))
         editButton.grid(row=0, column=3, padx=5, pady=5)
 
-        saveButton = tk.Button(frame, width=13, height=3, text="Save",
-                               command=lambda: guiUtils.saveImage(self.lastDisplayedImage))
+        saveButton = Button(frame, width=13, height=3, text="Save",
+                            command=lambda: guiUtils.saveImage(self.lastDisplayedImage))
         saveButton.grid(row=0, column=4, padx=5, pady=5)
 
         self.window.config(bg="systemWindowBackgroundColor")
@@ -120,17 +120,17 @@ class GUI:
     def loadImage(self):
         print("load")
 
-    def startEditImage(self, button: tk.Button):
+    def startEdit(self, button: Button):
         if self.lastScreenshot is not None:
             self.scanner.startScanner()
             self.editLoopStopper = False
             button.config(text="Stop Edit", command=lambda: self.stopEditImage(button))
             self.editLoop()
 
-    def stopEditImage(self, button: tk.Button):
+    def stopEditImage(self, button: Button):
         self.scanner.stopScanner()
         self.editLoopStopper = True
-        button.config(text="Start Edit", command=lambda: self.startEditImage(button))
+        button.config(text="Start Edit", command=lambda: self.startEdit(button))
 
     def editLoop(self):
         if self.editLoopStopper is True:
