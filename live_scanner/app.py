@@ -12,8 +12,8 @@ class GUI:
         self.windowWidth: int = int(1800 * guiUtils.getScreenScale(self.window))
         self.windowHeight: int = int(1400 * guiUtils.getScreenScale(self.window))
         self.scanner: Scanner = Scanner()
-        self.lastScreenshot: Image = None
-        self.lastDisplayedImage: Image = None
+        self.lastScreenshot: Image = Image.new('RGB', (0, 0))
+        self.lastDisplayedImage: Image = Image.new('RGB', (0, 0))
         self.editLoopStopper: bool = False
 
         self.window.title("Live scanner")
@@ -28,7 +28,7 @@ class GUI:
         self.isMousePressed: bool = False
         self.isSelectionStarted: bool = False
         self.startSelectPosition: tuple[int, int] = (0, 0)
-        self.mouseListener: mouse.Listener
+        self.mouseListener: mouse.Listener = mouse.Listener()
 
         self.screenshotService: ScreenshotService = ScreenshotService(self.window, self.imagebox)
 
@@ -37,7 +37,7 @@ class GUI:
 
     def updateScreenshotSize(self, event):
         self.imagebox.configure(height=event.width)
-        if self.lastScreenshot is not None:
+        if self.lastScreenshot.width != 0:
             img = guiUtils.resizeImageToParentSize(self.lastScreenshot, self.imagebox.winfo_width(),
                                                    self.imagebox.winfo_height())
             guiUtils.changeImage(img, self.imagebox)
