@@ -11,10 +11,9 @@ class GUI:
         self.window: tk.Tk = tk.Tk()
         self.windowWidth: int = int(1800 * guiUtils.getScreenScale(self.window))
         self.windowHeight: int = int(1400 * guiUtils.getScreenScale(self.window))
-        self.screenshotService: ScreenshotService = ScreenshotService(self.windowWidth, self.windowHeight, self.window)
         self.scanner: Scanner = Scanner()
-        self.lastScreenshot: tk.Image
-        self.lastDisplayedImage: tk.Image
+        self.lastScreenshot: tk.Image = None
+        self.lastDisplayedImage: tk.Image = None
         self.editLoopStopper: bool = False
 
         self.window.title("Live scanner")
@@ -25,13 +24,22 @@ class GUI:
         self.imagebox: tk.Label = tk.Label(self.window, width=90, height=80)
         self.canvas: tk.Canvas = tk.Canvas(self.window, width=screen_width, height=screen_height, bg='#000000')
         self.rect: int = self.canvas.create_rectangle(0, 0, 0, 0, fill="red")
+        self.window.bind('<Configure>', self.updateScreenshotSize)
         self.isMousePressed: bool = False
         self.isSelectionStarted: bool = False
         self.startSelectPosition: tuple[int, int] = (0, 0)
         self.mouseListener: mouse.Listener
 
+        self.screenshotService: ScreenshotService = ScreenshotService(self.window, self.imagebox)
+
         self.createDefaultLayout()
         self.window.mainloop()
+
+    def updateScreenshotSize(self, event):
+        self.imagebox.configure(height=event.width)
+        if self.lastScreenshot is not None:
+            img = guiUtils.resizeImageToParentSize(self.lastScreenshot, self.imagebox.winfo_width(), self.imagebox.winfo_height())
+            guiUtils.changeImage(img, self.imagebox)
 
     def createDefaultLayout(self):
         self.window.overrideredirect(False)
@@ -41,7 +49,7 @@ class GUI:
         frame.pack(side=tk.BOTTOM)
 
         self.imagebox.config(highlightbackground="white", highlightcolor="white", highlightthickness=2)
-        self.imagebox.pack()
+        self.imagebox.pack(side="top", fill="x", expand=False)
 
         screenSize = guiUtils.getScreenSize()
         takeButton = tk.Button(frame, width=13, height=3, text="Take a screenshot",

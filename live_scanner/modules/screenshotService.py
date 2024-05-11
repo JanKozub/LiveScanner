@@ -6,25 +6,20 @@ from live_scanner.modules import guiUtils
 
 
 class ScreenshotService:
-    def __init__(self, windowWidth: int, windowHeight: int, window: tkinter.Tk):
+    def __init__(self, window: tkinter.Tk, imagebox: tkinter.Label):
         self.screen_width, self.screen_height = guiUtils.getScreenSize()
         self.screen_scale: float = guiUtils.getScreenScale(window)
         self.mss_obj: mss = mss.mss()
-        self.frameWidth: int = int(windowWidth * 0.9)
-        self.frameHeight: int = int(windowHeight * 0.9)
+        self.window = window
+        self.imagebox = imagebox
 
     def take(self, fromX: int, fromY: int, toX: int, toY: int):
         with self.mss_obj as sct:
-            monitor = {"top": fromY * self.screen_scale, "left": fromX * self.screen_scale,
-                       "width": toX * self.screen_scale, "height": toY * self.screen_scale}
+            monitor = {"top": int(fromY * self.screen_scale),
+                       "left": int(fromX * self.screen_scale),
+                       "width": int((toX - fromX) * self.screen_scale),
+                       "height": int((toY - fromY) * self.screen_scale)}
             raw = sct.grab(monitor)
             img = Image.frombytes("RGB", raw.size, raw.rgb)
 
-            if img.width > self.frameWidth:
-                height = int(self.frameWidth / img.width * img.height)
-                img = img.resize((self.frameWidth, height))
-            elif img.height > self.frameHeight:
-                width = int(self.frameHeight / img.height * img.width)
-                img = img.resize((self.frameHeight, width))
-
-            return img
+            return guiUtils.resizeImageToParentSize(img, self.imagebox.winfo_width(), self.imagebox.winfo_height())

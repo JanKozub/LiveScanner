@@ -1,5 +1,6 @@
 import tkinter
 
+import PIL.Image
 from PIL import ImageGrab, ImageTk
 
 
@@ -22,6 +23,29 @@ def getScreenScale(window: tkinter.Tk):
 def clearLayout(window: tkinter.Tk):
     for widget in window.winfo_children():
         widget.pack_forget()
+
+
+def resizeImageToParentSize(img: PIL.Image.Image, parentWidth: int, parentHeight: int):
+    if img.width > parentWidth:
+        img = scaleByWidth(img, parentWidth)
+    elif img.height > parentHeight:
+        img = scaleByHeight(img, parentHeight)
+    else:
+        img = scaleByWidth(img, parentWidth)
+
+    return img
+
+
+def scaleByWidth(img: PIL.Image, parentWidth: int):
+    height = int(parentWidth / img.width * img.height)
+
+    return img.resize((parentWidth, height))
+
+
+def scaleByHeight(img: PIL.Image, parentHeight: int):
+    width = int(parentHeight / img.height * img.width)
+
+    return img.resize((parentHeight, width))
 
 
 def changeImage(image: tkinter.Image, imagebox: tkinter.Label):
