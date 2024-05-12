@@ -16,6 +16,7 @@ class GUI:
         self.lastScreenshot: Image = Image.new('RGB', (0, 0))
         self.lastDisplayedImage: Image = Image.new('RGB', (0, 0))
         self.editLoopStopper: bool = False
+        self.configLoopStopper: bool = False
 
         self.window.title("Live scanner")
 
@@ -82,12 +83,12 @@ class GUI:
                             command=lambda: guiUtils.saveImage(self.lastDisplayedImage))
         saveButton.grid(row=0, column=4, padx=5, pady=5)
 
-        configureColor = Button(frame, width=13, height=3, text="Configure",
-                                command=lambda: guiUtils.saveImage(self.lastDisplayedImage))
-        configureColor.grid(row=0, column=5, padx=5, pady=5)
+        configureButton = Button(frame, width=13, height=3, text="Start Config",
+                                 command=lambda: self.startColorConfig(configureButton))
+        configureButton.grid(row=0, column=5, padx=5, pady=5)
 
-        saveConfig = Button(frame, width=13, height=3, text="Save Config", command=self.saveConfig)
-        saveConfig.grid(row=0, column=6, padx=5, pady=5)
+        saveConfigButton = Button(frame, width=13, height=3, text="Save Config", command=self.saveConfig)
+        saveConfigButton.grid(row=0, column=6, padx=5, pady=5)
 
         s1 = Scale(frame, from_=0, to=179, orient=HORIZONTAL, command=lambda v: self.onChange(v, 0))
         s1.set(self.colorValues[0][0])
@@ -167,10 +168,10 @@ class GUI:
         if self.lastScreenshot is not None:
             self.scanner.startScanner()
             self.editLoopStopper = False
-            button.config(text="Stop Edit", command=lambda: self.stopEditImage(button))
+            button.config(text="Stop Edit", command=lambda: self.stopEdit(button))
             self.editLoop()
 
-    def stopEditImage(self, button: Button):
+    def stopEdit(self, button: Button):
         self.scanner.stopScanner()
         self.editLoopStopper = True
         button.config(text="Start Edit", command=lambda: self.startEdit(button))
@@ -179,12 +180,31 @@ class GUI:
         if self.editLoopStopper is True:
             return
 
-        capturedImage = Image.fromarray(self.scanner.getImage())
+        capturedImage = Image.fromarray(self.scanner.getFinalImage())
         mergedImages = Image.fromarray(self.scanner.mergeImages(self.lastScreenshot, capturedImage))
         self.lastDisplayedImage = mergedImages
 
         guiUtils.changeImage(mergedImages, self.imagebox)
         self.imagebox.after(10, lambda: self.editLoop())
+
+    def startColorConfig(self, button: Button):
+        self.configLoopStopper = False
+        self.scanner.startScanner()
+        button.config(text="Stop Config", command=lambda: self.stopColorConfig(button))
+        self.colorConfigLoop()
+
+    def stopColorConfig(self, button: Button):
+        self.scanner.stopScanner()
+        self.configLoopStopper = True
+        button.config(text="Start Config", command=lambda: self.startColorConfig(button))
+
+    def colorConfigLoop(self):
+        if self.configLoopStopper is True:
+            return
+
+        capturedImage = Image.fromarray(self.scanner.getColorsImage(self.colorValues[0], self.colorValues[1]))
+        guiUtils.changeImage(capturedImage, self.imagebox)
+        self.imagebox.after(10, lambda: self.colorConfigLoop())
 
 
 gui = GUI()

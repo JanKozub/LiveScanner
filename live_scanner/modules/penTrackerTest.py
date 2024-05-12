@@ -7,7 +7,7 @@ cap.set(4, 720)
 
 kernel = np.ones((5, 5), np.uint8)
 canvas = np.zeros_like(cap.read()[1])
-markerColors = (np.array([95, 130, 90]), np.array([180, 255, 255]))
+markerColors = np.load('../resources/colors.npy')
 penColor = [255, 0, 0]
 x1, y1 = 0, 0
 noiseArea = 800

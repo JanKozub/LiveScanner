@@ -12,7 +12,7 @@ class Scanner:
         self.oldCoordinates: list = []
 
     @staticmethod
-    def preProcessing(image):
+    def preProcessing(image: Image):
         imgGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)  # Gray image
         imgBlur = cv2.GaussianBlur(imgGray, (1, 1), 1)  # Blur Image - easing edges
         imgCanny = cv2.Canny(imgBlur, 100, 300)  # Canny Image - canny algo to find edges
@@ -24,7 +24,7 @@ class Scanner:
         return imgErode
 
     @staticmethod
-    def getCornerPoints(image):  # find corners of the biggest area inside contours to find the white paper
+    def getCornerPoints(image: Image):  # find corners of the biggest area inside contours to find the white paper
         cornerPointsOfMaxArea = np.array([])
         maxArea = 0
         contours, hierarchy = cv2.findContours(image, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_NONE)
@@ -40,7 +40,7 @@ class Scanner:
 
         return cornerPointsOfMaxArea
 
-    def getWarp(self, image, pageCoordinates):
+    def getWarp(self, image: Image, pageCoordinates: np.ndarray):
         if not pageCoordinates.any():  # when object's perimeter is partly covered
             prev_coord_points = self.oldCoordinates[:]
 
@@ -56,26 +56,26 @@ class Scanner:
 
         return image
 
-    def setPerspective(self, image, cords):
+    def setPerspective(self, image: Image, cords: np.ndarray):
         pts1 = np.float32([cords[1], cords[0], cords[2], cords[3]])
         pts2 = np.float32([[0, 0], [self.frameWidth, 0], [0, self.frameHeight], [self.frameWidth, self.frameHeight]])
         matrix = cv2.getPerspectiveTransform(pts1, pts2)
         return cv2.warpPerspective(image, matrix, (self.frameWidth, self.frameHeight))
 
-    def postProcess(self, image):
+    def postProcess(self, image: Image):
         rotatedImage = cv2.rotate(image, cv2.ROTATE_180)
         return rotatedImage[
                self.edgeSize:rotatedImage.shape[0] - self.edgeSize,
                self.edgeSize:rotatedImage.shape[1] - self.edgeSize]  # cropping unclear edges
 
-    def processImage(self, image):
+    def processImage(self, image: Image):
         imgPreprocessed = self.preProcessing(image)
         contours = self.getCornerPoints(imgPreprocessed)
         imgWarp = self.getWarp(image, contours)
         return self.postProcess(imgWarp)
 
     @staticmethod
-    def getWritingFromImage(image):
+    def getWritingFromImage(image: Image):
         gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
         mask = cv2.bitwise_not(cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)[1])
         final = cv2.bitwise_and(gray, gray, mask=mask)
@@ -91,10 +91,18 @@ class Scanner:
         cv2.destroyAllWindows()
         self.video = None
 
-    def getImage(self):
+    def getFinalImage(self):
         image = self.video.read()[1]
         processedImage = self.processImage(image)
         return self.getWritingFromImage(processedImage)
+
+    def getColorsImage(self, lower: np.ndarray, higher: np.ndarray):
+        image = self.video.read()[1]
+
+        hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+        res = cv2.bitwise_and(image, image, mask=cv2.inRange(hsv, lower, higher))
+
+        return res
 
     @staticmethod
     def mergeImages(bottomLayer: Image, topLayer: Image):
