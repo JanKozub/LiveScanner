@@ -1,9 +1,10 @@
-from tkinter import Tk, Image, Label, Button, Canvas, Frame, BOTTOM
+from tkinter import Tk, Image, Label, Button, Canvas, Frame, BOTTOM, Scale, HORIZONTAL
 from PIL import Image
 from live_scanner.modules import guiUtils
 from live_scanner.modules.screenshotService import ScreenshotService as ScreenshotService
 from live_scanner.modules.scanner import Scanner as Scanner
 from pynput import mouse
+import numpy as np
 
 
 class GUI:
@@ -29,6 +30,8 @@ class GUI:
         self.isSelectionStarted: bool = False
         self.startSelectPosition: tuple[int, int] = (0, 0)
         self.mouseListener: mouse.Listener = mouse.Listener()
+        self.colorValues = np.load('./resources/colors.npy')
+        # self.colorValues = [np.array([95, 130, 90]), np.array([180, 255, 255])] // default values
 
         self.screenshotService: ScreenshotService = ScreenshotService(self.window, self.imagebox)
 
@@ -41,6 +44,15 @@ class GUI:
             img = guiUtils.resizeImageToParentSize(self.lastScreenshot, self.imagebox.winfo_width(),
                                                    self.imagebox.winfo_height())
             guiUtils.changeImage(img, self.imagebox)
+
+    def onChange(self, value, position):
+        if position < 3:
+            self.colorValues[0][position] = value
+        else:
+            self.colorValues[1][position - 3] = value
+
+    def saveConfig(self):
+        np.save('./resources/colors', self.colorValues)
 
     def createDefaultLayout(self):
         self.window.overrideredirect(False)
@@ -66,9 +78,40 @@ class GUI:
         editButton = Button(frame, width=13, height=3, text="Start Edit", command=lambda: self.startEdit(editButton))
         editButton.grid(row=0, column=3, padx=5, pady=5)
 
-        saveButton = Button(frame, width=13, height=3, text="Save",
+        saveButton = Button(frame, width=13, height=3, text="Save Screenshot",
                             command=lambda: guiUtils.saveImage(self.lastDisplayedImage))
         saveButton.grid(row=0, column=4, padx=5, pady=5)
+
+        configureColor = Button(frame, width=13, height=3, text="Configure",
+                                command=lambda: guiUtils.saveImage(self.lastDisplayedImage))
+        configureColor.grid(row=0, column=5, padx=5, pady=5)
+
+        saveConfig = Button(frame, width=13, height=3, text="Save Config", command=self.saveConfig)
+        saveConfig.grid(row=0, column=6, padx=5, pady=5)
+
+        s1 = Scale(frame, from_=0, to=179, orient=HORIZONTAL, command=lambda v: self.onChange(v, 0))
+        s1.set(self.colorValues[0][0])
+        s1.grid(row=0, column=7, padx=5, pady=5)
+
+        s2 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onChange(v, 1))
+        s2.set(self.colorValues[0][1])
+        s2.grid(row=1, column=7, padx=5, pady=5)
+
+        s3 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onChange(v, 2))
+        s3.set(self.colorValues[0][2])
+        s3.grid(row=0, column=8, padx=5, pady=5)
+
+        s4 = Scale(frame, from_=0, to=179, orient=HORIZONTAL, command=lambda v: self.onChange(v, 3))
+        s4.set(self.colorValues[1][0])
+        s4.grid(row=1, column=8, padx=5, pady=5)
+
+        s5 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onChange(v, 4))
+        s5.set(self.colorValues[1][1])
+        s5.grid(row=0, column=9, padx=5, pady=5)
+
+        s6 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onChange(v, 5))
+        s6.set(self.colorValues[1][2])
+        s6.grid(row=1, column=9, padx=5, pady=5)
 
         self.window.config(bg="systemWindowBackgroundColor")
         self.window.attributes("-alpha", 1)
