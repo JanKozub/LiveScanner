@@ -4,22 +4,27 @@ import numpy as np
 
 
 class Scanner:
-    def __init__(self):
+    def __init__(self, colorValues: [np.array, np.array]):
         self.video = None
         self.frameWidth: int = 1920
         self.frameHeight: int = 1080
         self.edgeSize: int = 0
         self.oldCoordinates: list = []
+        self.colorValues: [np.array, np.array] = colorValues
+        self.kernel = np.ones((5, 5))
+        self.noiseArea = 800
+        self.canvas = None
+        self.penCords = (0, 0)
+        self.penColor = [255, 0, 0]
 
-    @staticmethod
-    def preProcessing(image: Image):
+    def preProcessing(self, image: Image):
         imgGray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)  # Gray image
         imgBlur = cv2.GaussianBlur(imgGray, (1, 1), 1)  # Blur Image - easing edges
         imgCanny = cv2.Canny(imgBlur, 100, 300)  # Canny Image - canny algo to find edges
-        kernel = np.ones((5, 5))
-        imgDilate = cv2.dilate(imgCanny, kernel,
-                               iterations=2)  # extending the found edges and then eroding it to smoothen the image
-        imgErode = cv2.erode(imgDilate, kernel, iterations=1)
+
+        # extending the found edges and then eroding it to smoothen the image
+        imgDilate = cv2.dilate(imgCanny, self.kernel, iterations=2)
+        imgErode = cv2.erode(imgDilate, self.kernel, iterations=1)
 
         return imgErode
 
@@ -74,18 +79,32 @@ class Scanner:
         imgWarp = self.getWarp(image, contours)
         return self.postProcess(imgWarp)
 
-    @staticmethod
-    def getWritingFromImage(image: Image):
-        gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-        mask = cv2.bitwise_not(cv2.threshold(gray, 150, 255, cv2.THRESH_BINARY)[1])
-        final = cv2.bitwise_and(gray, gray, mask=mask)
-        return cv2.cvtColor(final, cv2.COLOR_GRAY2RGB)
+    def getPenFromImage(self, image: Image):
+        hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
+        mask = cv2.inRange(hsv, self.colorValues[0], self.colorValues[1])
+        mask = cv2.erode(mask, self.kernel, iterations=1)
+        mask = cv2.dilate(mask, self.kernel, iterations=2)
+
+        contours, hierarchy = cv2.findContours(mask, cv2.RETR_EXTERNAL, cv2.CHAIN_APPROX_SIMPLE)
+
+        if contours and cv2.contourArea(max(contours, key=cv2.contourArea)) > self.noiseArea:
+            c = max(contours, key=cv2.contourArea)
+            x2, y2, w, h = cv2.boundingRect(c)
+
+            if self.penCords[0] != 0 or self.penCords[1] != 0:
+                self.canvas = cv2.line(self.canvas, self.penCords, (x2, y2), self.penColor, 6)
+
+            self.penCords = (x2, y2)
+
+        return self.canvas
 
     def startScanner(self):
         self.video = cv2.VideoCapture(1)
         self.video.set(3, self.frameWidth)
         self.video.set(4, self.frameHeight)
         self.video.set(100, 150)
+        self.canvas = np.zeros_like(self.video.read()[1])
 
     def stopScanner(self):
         cv2.destroyAllWindows()
@@ -94,7 +113,7 @@ class Scanner:
     def getFinalImage(self):
         image = self.video.read()[1]
         processedImage = self.processImage(image)
-        return self.getWritingFromImage(processedImage)
+        return self.getPenFromImage(processedImage)
 
     def getColorsImage(self, lower: np.ndarray, higher: np.ndarray):
         image = self.video.read()[1]

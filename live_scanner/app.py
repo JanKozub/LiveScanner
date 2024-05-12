@@ -12,7 +12,6 @@ class GUI:
         self.window: Tk = Tk()
         self.windowWidth: int = int(1800 * guiUtils.getScreenScale(self.window))
         self.windowHeight: int = int(1400 * guiUtils.getScreenScale(self.window))
-        self.scanner: Scanner = Scanner()
         self.lastScreenshot: Image = Image.new('RGB', (0, 0))
         self.lastDisplayedImage: Image = Image.new('RGB', (0, 0))
         self.editLoopStopper: bool = False
@@ -31,10 +30,11 @@ class GUI:
         self.isSelectionStarted: bool = False
         self.startSelectPosition: tuple[int, int] = (0, 0)
         self.mouseListener: mouse.Listener = mouse.Listener()
-        self.colorValues = np.load('./resources/colors.npy')
+        self.colorValues: [np.array, np.array] = np.load('./resources/colors.npy')
         # self.colorValues = [np.array([95, 130, 90]), np.array([180, 255, 255])] // default values
 
         self.screenshotService: ScreenshotService = ScreenshotService(self.window, self.imagebox)
+        self.scanner: Scanner = Scanner(self.colorValues)
 
         self.createDefaultLayout()
         self.window.mainloop()
