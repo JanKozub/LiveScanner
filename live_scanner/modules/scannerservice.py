@@ -3,7 +3,7 @@ import cv2
 import numpy as np
 
 
-class Scanner:
+class ScannerService:
     def __init__(self, colorValues: [np.array, np.array]):
         self.video = None
         self.frameWidth: int = 1920
@@ -12,7 +12,7 @@ class Scanner:
         self.oldCoordinates: list = []
         self.colorValues: [np.array, np.array] = colorValues
         self.kernel = np.ones((5, 5))
-        self.noiseArea = 800
+        self.noiseArea = 200
         self.canvas = None
         self.penCords = (0, 0)
         self.penColor = [255, 0, 0]
@@ -91,6 +91,8 @@ class Scanner:
         if contours and cv2.contourArea(max(contours, key=cv2.contourArea)) > self.noiseArea:
             c = max(contours, key=cv2.contourArea)
             x2, y2, w, h = cv2.boundingRect(c)
+            x2 = 1920 - x2
+            y2 = 1080 - y2
 
             if self.penCords[0] != 0 or self.penCords[1] != 0:
                 self.canvas = cv2.line(self.canvas, self.penCords, (x2, y2), self.penColor, 6)
@@ -100,7 +102,7 @@ class Scanner:
         return self.canvas
 
     def startScanner(self):
-        self.video = cv2.VideoCapture(1)
+        self.video = cv2.VideoCapture(0)
         self.video.set(3, self.frameWidth)
         self.video.set(4, self.frameHeight)
         self.video.set(100, 150)
