@@ -1,0 +1,1391 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1" />
+<meta name="generator" content="pdoc 0.10.0" />
+<title>app API documentation</title>
+<meta name="description" content="" />
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/sanitize.min.css" integrity="sha256-PK9q560IAAa6WVRRh76LtCaI8pjTJ2z11v0miyNNjrs=" crossorigin>
+<link rel="preload stylesheet" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/10up-sanitize.css/11.0.1/typography.min.css" integrity="sha256-7l/o7C8jubJiy74VsKTidCy1yBkRtiUGbVkYBylBqUg=" crossorigin>
+<link rel="stylesheet preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/styles/github.min.css" crossorigin>
+<style>:root{--highlight-color:#fe9}.flex{display:flex !important}body{line-height:1.5em}#content{padding:20px}#sidebar{padding:30px;overflow:hidden}#sidebar > *:last-child{margin-bottom:2cm}.http-server-breadcrumbs{font-size:130%;margin:0 0 15px 0}#footer{font-size:.75em;padding:5px 30px;border-top:1px solid #ddd;text-align:right}#footer p{margin:0 0 0 1em;display:inline-block}#footer p:last-child{margin-right:30px}h1,h2,h3,h4,h5{font-weight:300}h1{font-size:2.5em;line-height:1.1em}h2{font-size:1.75em;margin:1em 0 .50em 0}h3{font-size:1.4em;margin:25px 0 10px 0}h4{margin:0;font-size:105%}h1:target,h2:target,h3:target,h4:target,h5:target,h6:target{background:var(--highlight-color);padding:.2em 0}a{color:#058;text-decoration:none;transition:color .3s ease-in-out}a:hover{color:#e82}.title code{font-weight:bold}h2[id^="header-"]{margin-top:2em}.ident{color:#900}pre code{background:#f8f8f8;font-size:.8em;line-height:1.4em}code{background:#f2f2f1;padding:1px 4px;overflow-wrap:break-word}h1 code{background:transparent}pre{background:#f8f8f8;border:0;border-top:1px solid #ccc;border-bottom:1px solid #ccc;margin:1em 0;padding:1ex}#http-server-module-list{display:flex;flex-flow:column}#http-server-module-list div{display:flex}#http-server-module-list dt{min-width:10%}#http-server-module-list p{margin-top:0}.toc ul,#index{list-style-type:none;margin:0;padding:0}#index code{background:transparent}#index h3{border-bottom:1px solid #ddd}#index ul{padding:0}#index h4{margin-top:.6em;font-weight:bold}@media (min-width:200ex){#index .two-column{column-count:2}}@media (min-width:300ex){#index .two-column{column-count:3}}dl{margin-bottom:2em}dl dl:last-child{margin-bottom:4em}dd{margin:0 0 1em 3em}#header-classes + dl > dd{margin-bottom:3em}dd dd{margin-left:2em}dd p{margin:10px 0}.name{background:#eee;font-weight:bold;font-size:.85em;padding:5px 10px;display:inline-block;min-width:40%}.name:hover{background:#e0e0e0}dt:target .name{background:var(--highlight-color)}.name > span:first-child{white-space:nowrap}.name.class > span:nth-child(2){margin-left:.4em}.inherited{color:#999;border-left:5px solid #eee;padding-left:1em}.inheritance em{font-style:normal;font-weight:bold}.desc h2{font-weight:400;font-size:1.25em}.desc h3{font-size:1em}.desc dt code{background:inherit}.source summary,.git-link-div{color:#666;text-align:right;font-weight:400;font-size:.8em;text-transform:uppercase}.source summary > *{white-space:nowrap;cursor:pointer}.git-link{color:inherit;margin-left:1em}.source pre{max-height:500px;overflow:auto;margin:0}.source pre code{font-size:12px;overflow:visible}.hlist{list-style:none}.hlist li{display:inline}.hlist li:after{content:',\2002'}.hlist li:last-child:after{content:none}.hlist .hlist{display:inline;padding-left:1em}img{max-width:100%}td{padding:0 .5em}.admonition{padding:.1em .5em;margin-bottom:1em}.admonition-title{font-weight:bold}.admonition.note,.admonition.info,.admonition.important{background:#aef}.admonition.todo,.admonition.versionadded,.admonition.tip,.admonition.hint{background:#dfd}.admonition.warning,.admonition.versionchanged,.admonition.deprecated{background:#fd4}.admonition.error,.admonition.danger,.admonition.caution{background:lightpink}</style>
+<style media="screen and (min-width: 700px)">@media screen and (min-width:700px){#sidebar{width:30%;height:100vh;overflow:auto;position:sticky;top:0}#content{width:70%;max-width:100ch;padding:3em 4em;border-left:1px solid #ddd}pre code{font-size:1em}.item .name{font-size:1em}main{display:flex;flex-direction:row-reverse;justify-content:flex-end}.toc ul ul,#index ul{padding-left:1.5em}.toc > ul > li{margin-top:.5em}}</style>
+<style media="print">@media print{#sidebar h1{page-break-before:always}.source{display:none}}@media print{*{background:transparent !important;color:#000 !important;box-shadow:none !important;text-shadow:none !important}a[href]:after{content:" (" attr(href) ")";font-size:90%}a[href][title]:after{content:none}abbr[title]:after{content:" (" attr(title) ")"}.ir a:after,a[href^="javascript:"]:after,a[href^="#"]:after{content:""}pre,blockquote{border:1px solid #999;page-break-inside:avoid}thead{display:table-header-group}tr,img{page-break-inside:avoid}img{max-width:100% !important}@page{margin:0.5cm}p,h2,h3{orphans:3;widows:3}h1,h2,h3,h4,h5,h6{page-break-after:avoid}}</style>
+<script defer src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/10.1.1/highlight.min.js" integrity="sha256-Uv3H6lx7dJmRfRvH8TH6kJD1TSK1aFcwgx+mdg3epi8=" crossorigin></script>
+<script>window.addEventListener('DOMContentLoaded', () => hljs.initHighlighting())</script>
+</head>
+<body>
+<main>
+<article id="content">
+<header>
+<h1 class="title">Module <code>app</code></h1>
+</header>
+<section id="section-intro">
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">from tkinter import Tk, Image, Label, Button, Canvas, Frame, BOTTOM, Scale, HORIZONTAL
+from PIL import Image
+from project.modules.guiUtils import GuiUtils
+from project.modules.screenshotService import ScreenshotService as ScreenshotService
+from project.modules.scannerService import ScannerService
+from pynput import mouse
+import numpy as np
+
+
+class GUI:
+    &#34;&#34;&#34;
+        A class is used to create GUI
+
+        Attributes
+        ----------
+        window: Tk
+            Main GUI window
+        windowSize: tuple[int, int]
+            Size of the main GUI window
+        lastScreenshot: Image
+            Last screenshot taken(default Image.new(&#39;RGB&#39;, (0, 0)))
+        lastDisplayedImage: Image
+            Last image displayed for user(default Image.new(&#39;RGB&#39;, (0, 0)))
+        imageComponent: Label
+            Main component in which image is displayed(default Label(self.window, width=90, height=80))
+        cropBackground: Canvas
+            Background component displayed when taking cropped screenshot(default tkinter.Canvas)
+        self.croppingRect: int
+            Rect displayed as selected area on cropBackground(default cropBackground.create_rectangle(0, 0, 0, 0, fill=&#34;red&#34;))
+        startSelectPosition: tuple[int, int]
+            Cords of first selected position during cropping(default (0, 0))
+        editLoopStopper: bool
+            Stopper for editing loop(default False)
+        configLoopStopper: bool
+            Stopper for config loop(default False)
+        isMousePressed: bool
+            Status of mouse left button(default False)
+        isSelectionStarted: bool
+            Status of selection (default False)
+        colorValues: [array, array]
+            values of configured colors(default np.load(&#39;./resources/colors.npy&#39;))
+        screenshotService: ScreenshotService
+            class responsible for taking screenshots(default ScreenshotService)
+        scannerService: ScannerService
+            class of camera scanner(default ScannerService)
+        mouseListener: mouse.Listener
+            class responsible for mouse inputs(default mouseListener)
+
+        Methods
+        -------
+        updateScreenshotSize(self, event):
+            Sets new screenshot size after resizing of window
+        onSliderChange(self, value, position):
+            Update colors value after changing slider value
+        saveConfig(self):
+            Saves values of sliders to file
+        createDefaultLayout(self):
+            Refreshes layout to default layout
+        startMouseEvent(self):
+            Starts listening on mouse event
+        takeAScreenshot(self, fromX: int, fromY: int, toX: int, toY: int):
+            Takes new screenshot and displays it on layout
+        onMouseMove(self, xPos: int, yPos: int):
+            On mouse move
+        onMouseClick(self, mouse_position_x: int, mouse_position_y: int, button: mouse.Button, is_pressed: bool):
+            On mouse click event
+        takeACropScreenshot(self):
+            Takes cropped screenshot and displays it on layout
+        loadImage(self):
+            Loads Image from memory
+        startEdit(self, button: Button):
+            Starts editing loop
+        stopEdit(self, button: Button):
+            Stops editing loop
+        editLoop(self):
+            Loop responsible for refreshing editing based on camera input
+        startColorConfig(self, button: Button):
+            Starts configuration loop
+        stopColorConfig(self, button: Button):
+            Stops configuration loop
+        colorConfigLoop(self):
+            Loop responsible for configuring colors
+        &#34;&#34;&#34;
+
+    def __init__(self):
+        self.window: Tk = Tk()
+        self.windowSize: tuple[int, int] = \
+            (int(1800 * GuiUtils.getScreenScale(self.window)), int(1400 * GuiUtils.getScreenScale(self.window)))
+        self.lastScreenshot: Image = Image.new(&#39;RGB&#39;, (0, 0))
+        self.lastDisplayedImage: Image = Image.new(&#39;RGB&#39;, (0, 0))
+
+        self.imageComponent: Label = Label(self.window, width=90, height=80)
+        self.cropBackground: Canvas = Canvas(self.window, width=self.window.winfo_screenwidth(),
+                                             height=self.window.winfo_screenheight(), bg=&#39;#000000&#39;)
+        self.croppingRect: int = self.cropBackground.create_rectangle(0, 0, 0, 0, fill=&#34;red&#34;)
+        self.startSelectPosition: tuple[int, int] = (0, 0)
+        self.editLoopStopper: bool = False
+        self.configLoopStopper: bool = False
+        self.isMousePressed: bool = False
+        self.isSelectionStarted: bool = False
+
+        self.colorValues: [np.array, np.array] = np.load(&#39;resources/colors.npy&#39;)
+        self.screenshotService: ScreenshotService = ScreenshotService(self.window, self.imageComponent)
+        self.scannerService: ScannerService = ScannerService(self.colorValues)
+        self.mouseListener: mouse.Listener = mouse.Listener()
+
+        self.window.title(&#34;Live scanner&#34;)
+        self.window.bind(&#39;&lt;Configure&gt;&#39;, self.updateScreenshotSize)
+        self.createDefaultLayout()
+        self.window.mainloop()
+
+    def updateScreenshotSize(self, event: {}):
+        &#34;&#34;&#34;Updates displayed screenshot size according to window size
+
+                Parameters
+                ----------
+                :param event: dict
+                    Passed by default
+        &#34;&#34;&#34;
+
+        self.imageComponent.configure(height=event.width)
+        if self.lastScreenshot.width != 0:
+            img = GuiUtils.resizeImageToParentSize(self.lastScreenshot, self.imageComponent.winfo_width(),
+                                                   self.imageComponent.winfo_height())
+            GuiUtils.changeImage(img, self.imageComponent)
+
+    def onSliderChange(self, value, position):
+        &#34;&#34;&#34;Updates color values based on slider change
+
+                        Parameters
+                        ----------
+                        :param value: int
+                            New value from the slider
+                        :param position: int
+                            Position/index of the slider
+        &#34;&#34;&#34;
+
+        if position &lt; 3:
+            self.colorValues[0][position] = value
+        else:
+            self.colorValues[1][position - 3] = value
+
+    def saveConfig(self):
+        &#34;&#34;&#34;Saves the current color configuration to a file.&#34;&#34;&#34;
+
+        np.save(&#39;./resources/colors&#39;, self.colorValues)
+
+    def createDefaultLayout(self):
+        &#34;&#34;&#34;Creates the default layout for the application window.&#34;&#34;&#34;
+
+        self.window.overrideredirect(False)
+        self.window.wm_state(&#34;normal&#34;)
+        GuiUtils.centerOnStart(self.window, self.windowSize[0], self.windowSize[1])
+        frame: Frame = Frame(self.window)
+        frame.pack(side=BOTTOM)
+
+        self.imageComponent.config(highlightbackground=&#34;white&#34;, highlightcolor=&#34;white&#34;, highlightthickness=2)
+        self.imageComponent.pack(side=&#34;top&#34;, fill=&#34;x&#34;, expand=False)
+
+        screenSize = GuiUtils.getScreenSize()
+        takeButton = Button(frame, width=13, height=3, text=&#34;Take a screenshot&#34;,
+                            command=lambda: self.takeAScreenshot(0, 0, screenSize[0], screenSize[1]))
+        takeButton.grid(row=0, column=0, padx=5, pady=5)
+
+        cropButton = Button(frame, width=13, height=3, text=&#34;Crop screenshot&#34;, command=self.takeACropScreenshot)
+        cropButton.grid(row=0, column=1, padx=5, pady=5)
+
+        loadButton = Button(frame, width=13, height=3, text=&#34;Load screenshot&#34;, command=self.loadImage)
+        loadButton.grid(row=0, column=2, padx=5, pady=5)
+
+        editButton = Button(frame, width=13, height=3, text=&#34;Start Edit&#34;, command=lambda: self.startEdit(editButton))
+        editButton.grid(row=0, column=3, padx=5, pady=5)
+
+        saveButton = Button(frame, width=13, height=3, text=&#34;Save Screenshot&#34;,
+                            command=lambda: GuiUtils.saveImage(self.lastDisplayedImage))
+        saveButton.grid(row=0, column=4, padx=5, pady=5)
+
+        configureButton = Button(frame, width=13, height=3, text=&#34;Start Config&#34;,
+                                 command=lambda: self.startColorConfig(configureButton))
+        configureButton.grid(row=0, column=5, padx=5, pady=5)
+
+        saveConfigButton = Button(frame, width=13, height=3, text=&#34;Save Config&#34;, command=self.saveConfig)
+        saveConfigButton.grid(row=0, column=6, padx=5, pady=5)
+
+        s1 = Scale(frame, from_=0, to=179, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 0))
+        s1.set(self.colorValues[0][0])
+        s1.grid(row=0, column=7, padx=5, pady=5)
+
+        s2 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 1))
+        s2.set(self.colorValues[0][1])
+        s2.grid(row=1, column=7, padx=5, pady=5)
+
+        s3 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 2))
+        s3.set(self.colorValues[0][2])
+        s3.grid(row=0, column=8, padx=5, pady=5)
+
+        s4 = Scale(frame, from_=0, to=179, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 3))
+        s4.set(self.colorValues[1][0])
+        s4.grid(row=1, column=8, padx=5, pady=5)
+
+        s5 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 4))
+        s5.set(self.colorValues[1][1])
+        s5.grid(row=0, column=9, padx=5, pady=5)
+
+        s6 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 5))
+        s6.set(self.colorValues[1][2])
+        s6.grid(row=1, column=9, padx=5, pady=5)
+
+        self.window.config(bg=&#34;systemWindowBackgroundColor&#34;)
+        self.window.attributes(&#34;-alpha&#34;, 1)
+
+    def startMouseEvent(self):
+        &#34;&#34;&#34;Starts listening to mouse events.&#34;&#34;&#34;
+
+        self.mouseListener = mouse.Listener(on_move=self.onMouseMove, on_click=self.onMouseClick)
+        self.mouseListener.start()
+
+    def takeAScreenshot(self, fromX: int, fromY: int, toX: int, toY: int):
+        &#34;&#34;&#34;Takes a screenshot of the specified area.
+
+                        Parameters
+                        ----------
+                        :param fromX: int
+                            Starting x-coordinate for the screenshot
+                        :param fromY: int
+                            Starting y-coordinate for the screenshot
+                        :param toX: int
+                            Ending x-coordinate for the screenshot
+                        :param toY: int
+                            Ending y-coordinate for the screenshot
+        &#34;&#34;&#34;
+
+        self.lastScreenshot = self.screenshotService.take(fromX, fromY, toX, toY)
+        GuiUtils.changeImage(self.lastScreenshot, self.imageComponent)
+
+    def onMouseMove(self, xPos: int, yPos: int):
+        &#34;&#34;&#34;Handles the mouse move event for cropping.
+
+                        Parameters
+                        ----------
+                        :param xPos: int
+                            Current x-coordinate of the mouse
+                        :param yPos: int
+                            Current y-coordinate of the mouse
+        &#34;&#34;&#34;
+
+        if self.isMousePressed:
+            self.cropBackground.coords(self.croppingRect, self.startSelectPosition[0], self.startSelectPosition[1],
+                                       xPos, yPos)
+            self.isSelectionStarted = True
+        elif self.isSelectionStarted:
+            self.isSelectionStarted = False
+            GuiUtils.clearLayout(self.window)
+            self.createDefaultLayout()
+            self.takeAScreenshot(self.startSelectPosition[0], self.startSelectPosition[1], xPos, yPos)
+            self.mouseListener.stop()
+
+    def onMouseClick(self, mouse_position_x: int, mouse_position_y: int, button: mouse.Button, is_pressed: bool):
+        &#34;&#34;&#34;Handles the mouse click event.
+
+                       Parameters
+                       ----------
+                       :param mouse_position_x: int
+                           x-coordinate of the mouse click
+                       :param mouse_position_y: int
+                           y-coordinate of the mouse click
+                       :param button: mouse.Button
+                            element that was clicked
+                       :param is_pressed: bool
+                           Indicates if the button is pressed
+        &#34;&#34;&#34;
+
+        if button == button.left:
+            self.isMousePressed = is_pressed
+
+            if is_pressed:
+                self.startSelectPosition = (mouse_position_x, mouse_position_y)
+
+    def takeACropScreenshot(self):
+        &#34;&#34;&#34;Prepares the interface for taking a cropped screenshot.&#34;&#34;&#34;
+
+        GuiUtils.clearLayout(self.window)
+
+        self.window.overrideredirect(True)
+        self.window.wm_state(&#34;zoomed&#34;)
+        screen_width = self.window.winfo_screenwidth()
+        screen_height = self.window.winfo_screenheight()
+
+        self.window.geometry(f&#34;{screen_width}x{screen_height}+0+0&#34;)
+        self.cropBackground.configure(bg=&#34;white&#34;)
+        self.cropBackground.coords(self.croppingRect, 0, 0, 0, 0)
+        self.cropBackground.pack()
+
+        self.window.config(bg=&#34;white&#34;)
+        self.window.attributes(&#34;-alpha&#34;, 0.25)
+
+        self.startMouseEvent()
+
+    def loadImage(self):
+        &#34;&#34;&#34;Loads an image from memory.&#34;&#34;&#34;
+
+        self.takeAScreenshot(0, 0, 0, 0)
+
+    def startEdit(self, button: Button):
+        &#34;&#34;&#34;Starts the editing loop.
+
+                        Parameters
+                        ----------
+                        :param button: Button
+                            Element that triggered this function
+         &#34;&#34;&#34;
+
+        if self.lastScreenshot is not None:
+            self.scannerService.startScanner()
+            self.editLoopStopper = False
+            button.config(text=&#34;Stop Edit&#34;, command=lambda: self.stopEdit(button))
+            self.editLoop()
+
+    def stopEdit(self, button: Button):
+        &#34;&#34;&#34;Stops the editing loop.
+
+                        Parameters
+                        ----------
+                        :param button: Button
+                            Element that triggered this function
+        &#34;&#34;&#34;
+
+        self.scannerService.stopScanner()
+        self.editLoopStopper = True
+        button.config(text=&#34;Start Edit&#34;, command=lambda: self.startEdit(button))
+
+    def editLoop(self):
+        &#34;&#34;&#34;Continuously updates the image being edited.&#34;&#34;&#34;
+
+        if self.editLoopStopper is True:
+            return
+
+        capturedImage = Image.fromarray(self.scannerService.getFinalImage())
+        mergedImages = Image.fromarray(self.scannerService.mergeImages(self.lastScreenshot, capturedImage))
+        self.lastDisplayedImage = mergedImages
+
+        GuiUtils.changeImage(mergedImages, self.imageComponent)
+        self.imageComponent.after(10, lambda: self.editLoop())
+
+    def startColorConfig(self, button: Button):
+        &#34;&#34;&#34;Starts the color configuration loop.
+
+                        Parameters
+                        ----------
+                        :param button: Button
+                            Element that triggered this function
+        &#34;&#34;&#34;
+
+        self.configLoopStopper = False
+        self.scannerService.startScanner()
+        button.config(text=&#34;Stop Config&#34;, command=lambda: self.stopColorConfig(button))
+        self.colorConfigLoop()
+
+    def stopColorConfig(self, button: Button):
+        &#34;&#34;&#34;Stops the color configuration loop.
+
+                        Parameters
+                        ----------
+                        :param button: Button
+                            Element that triggered this function
+        &#34;&#34;&#34;
+
+        self.scannerService.stopScanner()
+        self.configLoopStopper = True
+        button.config(text=&#34;Start Config&#34;, command=lambda: self.startColorConfig(button))
+
+    def colorConfigLoop(self):
+        &#34;&#34;&#34;Continuously updates the image for color configuration.&#34;&#34;&#34;
+
+        if self.configLoopStopper is True:
+            return
+
+        capturedImage = Image.fromarray(self.scannerService.getColorsImage(self.colorValues[0], self.colorValues[1]))
+        GuiUtils.changeImage(capturedImage, self.imageComponent)
+        self.imageComponent.after(10, lambda: self.colorConfigLoop())
+
+
+if __name__ == &#34;__main__&#34;:
+    gui = GUI()</code></pre>
+</details>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+</section>
+<section>
+<h2 class="section-title" id="header-classes">Classes</h2>
+<dl>
+<dt id="app.GUI"><code class="flex name class">
+<span>class <span class="ident">GUI</span></span>
+</code></dt>
+<dd>
+<div class="desc"><p>A class is used to create GUI</p>
+<h2 id="attributes">Attributes</h2>
+<dl>
+<dt><strong><code>window</code></strong> :&ensp;<code>Tk</code></dt>
+<dd>Main GUI window</dd>
+<dt><strong><code>windowSize</code></strong> :&ensp;<code>tuple[int, int]</code></dt>
+<dd>Size of the main GUI window</dd>
+<dt><strong><code>lastScreenshot</code></strong> :&ensp;<code>Image</code></dt>
+<dd>Last screenshot taken(default Image.new('RGB', (0, 0)))</dd>
+<dt><strong><code>lastDisplayedImage</code></strong> :&ensp;<code>Image</code></dt>
+<dd>Last image displayed for user(default Image.new('RGB', (0, 0)))</dd>
+<dt><strong><code>imageComponent</code></strong> :&ensp;<code>Label</code></dt>
+<dd>Main component in which image is displayed(default Label(self.window, width=90, height=80))</dd>
+<dt><strong><code>cropBackground</code></strong> :&ensp;<code>Canvas</code></dt>
+<dd>Background component displayed when taking cropped screenshot(default tkinter.Canvas)</dd>
+<dt>self.croppingRect: int</dt>
+<dt>Rect displayed as selected area on cropBackground(default cropBackground.create_rectangle(0, 0, 0, 0, fill="red"))</dt>
+<dt><strong><code>startSelectPosition</code></strong> :&ensp;<code>tuple[int, int]</code></dt>
+<dd>Cords of first selected position during cropping(default (0, 0))</dd>
+<dt><strong><code>editLoopStopper</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Stopper for editing loop(default False)</dd>
+<dt><strong><code>configLoopStopper</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Stopper for config loop(default False)</dd>
+<dt><strong><code>isMousePressed</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Status of mouse left button(default False)</dd>
+<dt><strong><code>isSelectionStarted</code></strong> :&ensp;<code>bool</code></dt>
+<dd>Status of selection (default False)</dd>
+<dt><strong><code>colorValues</code></strong> :&ensp;<code>[array, array]</code></dt>
+<dd>values of configured colors(default np.load('./resources/colors.npy'))</dd>
+<dt><strong><code>screenshotService</code></strong> :&ensp;<code>ScreenshotService</code></dt>
+<dd>class responsible for taking screenshots(default ScreenshotService)</dd>
+<dt><strong><code>scannerService</code></strong> :&ensp;<code>ScannerService</code></dt>
+<dd>class of camera scanner(default ScannerService)</dd>
+<dt><strong><code>mouseListener</code></strong> :&ensp;<code>mouse.Listener</code></dt>
+<dd>class responsible for mouse inputs(default mouseListener)</dd>
+</dl>
+<h2 id="methods">Methods</h2>
+<p>updateScreenshotSize(self, event):
+Sets new screenshot size after resizing of window
+onSliderChange(self, value, position):
+Update colors value after changing slider value
+saveConfig(self):
+Saves values of sliders to file
+createDefaultLayout(self):
+Refreshes layout to default layout
+startMouseEvent(self):
+Starts listening on mouse event
+takeAScreenshot(self, fromX: int, fromY: int, toX: int, toY: int):
+Takes new screenshot and displays it on layout
+onMouseMove(self, xPos: int, yPos: int):
+On mouse move
+onMouseClick(self, mouse_position_x: int, mouse_position_y: int, button: mouse.Button, is_pressed: bool):
+On mouse click event
+takeACropScreenshot(self):
+Takes cropped screenshot and displays it on layout
+loadImage(self):
+Loads Image from memory
+startEdit(self, button: Button):
+Starts editing loop
+stopEdit(self, button: Button):
+Stops editing loop
+editLoop(self):
+Loop responsible for refreshing editing based on camera input
+startColorConfig(self, button: Button):
+Starts configuration loop
+stopColorConfig(self, button: Button):
+Stops configuration loop
+colorConfigLoop(self):
+Loop responsible for configuring colors</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">class GUI:
+    &#34;&#34;&#34;
+        A class is used to create GUI
+
+        Attributes
+        ----------
+        window: Tk
+            Main GUI window
+        windowSize: tuple[int, int]
+            Size of the main GUI window
+        lastScreenshot: Image
+            Last screenshot taken(default Image.new(&#39;RGB&#39;, (0, 0)))
+        lastDisplayedImage: Image
+            Last image displayed for user(default Image.new(&#39;RGB&#39;, (0, 0)))
+        imageComponent: Label
+            Main component in which image is displayed(default Label(self.window, width=90, height=80))
+        cropBackground: Canvas
+            Background component displayed when taking cropped screenshot(default tkinter.Canvas)
+        self.croppingRect: int
+            Rect displayed as selected area on cropBackground(default cropBackground.create_rectangle(0, 0, 0, 0, fill=&#34;red&#34;))
+        startSelectPosition: tuple[int, int]
+            Cords of first selected position during cropping(default (0, 0))
+        editLoopStopper: bool
+            Stopper for editing loop(default False)
+        configLoopStopper: bool
+            Stopper for config loop(default False)
+        isMousePressed: bool
+            Status of mouse left button(default False)
+        isSelectionStarted: bool
+            Status of selection (default False)
+        colorValues: [array, array]
+            values of configured colors(default np.load(&#39;./resources/colors.npy&#39;))
+        screenshotService: ScreenshotService
+            class responsible for taking screenshots(default ScreenshotService)
+        scannerService: ScannerService
+            class of camera scanner(default ScannerService)
+        mouseListener: mouse.Listener
+            class responsible for mouse inputs(default mouseListener)
+
+        Methods
+        -------
+        updateScreenshotSize(self, event):
+            Sets new screenshot size after resizing of window
+        onSliderChange(self, value, position):
+            Update colors value after changing slider value
+        saveConfig(self):
+            Saves values of sliders to file
+        createDefaultLayout(self):
+            Refreshes layout to default layout
+        startMouseEvent(self):
+            Starts listening on mouse event
+        takeAScreenshot(self, fromX: int, fromY: int, toX: int, toY: int):
+            Takes new screenshot and displays it on layout
+        onMouseMove(self, xPos: int, yPos: int):
+            On mouse move
+        onMouseClick(self, mouse_position_x: int, mouse_position_y: int, button: mouse.Button, is_pressed: bool):
+            On mouse click event
+        takeACropScreenshot(self):
+            Takes cropped screenshot and displays it on layout
+        loadImage(self):
+            Loads Image from memory
+        startEdit(self, button: Button):
+            Starts editing loop
+        stopEdit(self, button: Button):
+            Stops editing loop
+        editLoop(self):
+            Loop responsible for refreshing editing based on camera input
+        startColorConfig(self, button: Button):
+            Starts configuration loop
+        stopColorConfig(self, button: Button):
+            Stops configuration loop
+        colorConfigLoop(self):
+            Loop responsible for configuring colors
+        &#34;&#34;&#34;
+
+    def __init__(self):
+        self.window: Tk = Tk()
+        self.windowSize: tuple[int, int] = \
+            (int(1800 * GuiUtils.getScreenScale(self.window)), int(1400 * GuiUtils.getScreenScale(self.window)))
+        self.lastScreenshot: Image = Image.new(&#39;RGB&#39;, (0, 0))
+        self.lastDisplayedImage: Image = Image.new(&#39;RGB&#39;, (0, 0))
+
+        self.imageComponent: Label = Label(self.window, width=90, height=80)
+        self.cropBackground: Canvas = Canvas(self.window, width=self.window.winfo_screenwidth(),
+                                             height=self.window.winfo_screenheight(), bg=&#39;#000000&#39;)
+        self.croppingRect: int = self.cropBackground.create_rectangle(0, 0, 0, 0, fill=&#34;red&#34;)
+        self.startSelectPosition: tuple[int, int] = (0, 0)
+        self.editLoopStopper: bool = False
+        self.configLoopStopper: bool = False
+        self.isMousePressed: bool = False
+        self.isSelectionStarted: bool = False
+
+        self.colorValues: [np.array, np.array] = np.load(&#39;resources/colors.npy&#39;)
+        self.screenshotService: ScreenshotService = ScreenshotService(self.window, self.imageComponent)
+        self.scannerService: ScannerService = ScannerService(self.colorValues)
+        self.mouseListener: mouse.Listener = mouse.Listener()
+
+        self.window.title(&#34;Live scanner&#34;)
+        self.window.bind(&#39;&lt;Configure&gt;&#39;, self.updateScreenshotSize)
+        self.createDefaultLayout()
+        self.window.mainloop()
+
+    def updateScreenshotSize(self, event: {}):
+        &#34;&#34;&#34;Updates displayed screenshot size according to window size
+
+                Parameters
+                ----------
+                :param event: dict
+                    Passed by default
+        &#34;&#34;&#34;
+
+        self.imageComponent.configure(height=event.width)
+        if self.lastScreenshot.width != 0:
+            img = GuiUtils.resizeImageToParentSize(self.lastScreenshot, self.imageComponent.winfo_width(),
+                                                   self.imageComponent.winfo_height())
+            GuiUtils.changeImage(img, self.imageComponent)
+
+    def onSliderChange(self, value, position):
+        &#34;&#34;&#34;Updates color values based on slider change
+
+                        Parameters
+                        ----------
+                        :param value: int
+                            New value from the slider
+                        :param position: int
+                            Position/index of the slider
+        &#34;&#34;&#34;
+
+        if position &lt; 3:
+            self.colorValues[0][position] = value
+        else:
+            self.colorValues[1][position - 3] = value
+
+    def saveConfig(self):
+        &#34;&#34;&#34;Saves the current color configuration to a file.&#34;&#34;&#34;
+
+        np.save(&#39;./resources/colors&#39;, self.colorValues)
+
+    def createDefaultLayout(self):
+        &#34;&#34;&#34;Creates the default layout for the application window.&#34;&#34;&#34;
+
+        self.window.overrideredirect(False)
+        self.window.wm_state(&#34;normal&#34;)
+        GuiUtils.centerOnStart(self.window, self.windowSize[0], self.windowSize[1])
+        frame: Frame = Frame(self.window)
+        frame.pack(side=BOTTOM)
+
+        self.imageComponent.config(highlightbackground=&#34;white&#34;, highlightcolor=&#34;white&#34;, highlightthickness=2)
+        self.imageComponent.pack(side=&#34;top&#34;, fill=&#34;x&#34;, expand=False)
+
+        screenSize = GuiUtils.getScreenSize()
+        takeButton = Button(frame, width=13, height=3, text=&#34;Take a screenshot&#34;,
+                            command=lambda: self.takeAScreenshot(0, 0, screenSize[0], screenSize[1]))
+        takeButton.grid(row=0, column=0, padx=5, pady=5)
+
+        cropButton = Button(frame, width=13, height=3, text=&#34;Crop screenshot&#34;, command=self.takeACropScreenshot)
+        cropButton.grid(row=0, column=1, padx=5, pady=5)
+
+        loadButton = Button(frame, width=13, height=3, text=&#34;Load screenshot&#34;, command=self.loadImage)
+        loadButton.grid(row=0, column=2, padx=5, pady=5)
+
+        editButton = Button(frame, width=13, height=3, text=&#34;Start Edit&#34;, command=lambda: self.startEdit(editButton))
+        editButton.grid(row=0, column=3, padx=5, pady=5)
+
+        saveButton = Button(frame, width=13, height=3, text=&#34;Save Screenshot&#34;,
+                            command=lambda: GuiUtils.saveImage(self.lastDisplayedImage))
+        saveButton.grid(row=0, column=4, padx=5, pady=5)
+
+        configureButton = Button(frame, width=13, height=3, text=&#34;Start Config&#34;,
+                                 command=lambda: self.startColorConfig(configureButton))
+        configureButton.grid(row=0, column=5, padx=5, pady=5)
+
+        saveConfigButton = Button(frame, width=13, height=3, text=&#34;Save Config&#34;, command=self.saveConfig)
+        saveConfigButton.grid(row=0, column=6, padx=5, pady=5)
+
+        s1 = Scale(frame, from_=0, to=179, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 0))
+        s1.set(self.colorValues[0][0])
+        s1.grid(row=0, column=7, padx=5, pady=5)
+
+        s2 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 1))
+        s2.set(self.colorValues[0][1])
+        s2.grid(row=1, column=7, padx=5, pady=5)
+
+        s3 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 2))
+        s3.set(self.colorValues[0][2])
+        s3.grid(row=0, column=8, padx=5, pady=5)
+
+        s4 = Scale(frame, from_=0, to=179, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 3))
+        s4.set(self.colorValues[1][0])
+        s4.grid(row=1, column=8, padx=5, pady=5)
+
+        s5 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 4))
+        s5.set(self.colorValues[1][1])
+        s5.grid(row=0, column=9, padx=5, pady=5)
+
+        s6 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 5))
+        s6.set(self.colorValues[1][2])
+        s6.grid(row=1, column=9, padx=5, pady=5)
+
+        self.window.config(bg=&#34;systemWindowBackgroundColor&#34;)
+        self.window.attributes(&#34;-alpha&#34;, 1)
+
+    def startMouseEvent(self):
+        &#34;&#34;&#34;Starts listening to mouse events.&#34;&#34;&#34;
+
+        self.mouseListener = mouse.Listener(on_move=self.onMouseMove, on_click=self.onMouseClick)
+        self.mouseListener.start()
+
+    def takeAScreenshot(self, fromX: int, fromY: int, toX: int, toY: int):
+        &#34;&#34;&#34;Takes a screenshot of the specified area.
+
+                        Parameters
+                        ----------
+                        :param fromX: int
+                            Starting x-coordinate for the screenshot
+                        :param fromY: int
+                            Starting y-coordinate for the screenshot
+                        :param toX: int
+                            Ending x-coordinate for the screenshot
+                        :param toY: int
+                            Ending y-coordinate for the screenshot
+        &#34;&#34;&#34;
+
+        self.lastScreenshot = self.screenshotService.take(fromX, fromY, toX, toY)
+        GuiUtils.changeImage(self.lastScreenshot, self.imageComponent)
+
+    def onMouseMove(self, xPos: int, yPos: int):
+        &#34;&#34;&#34;Handles the mouse move event for cropping.
+
+                        Parameters
+                        ----------
+                        :param xPos: int
+                            Current x-coordinate of the mouse
+                        :param yPos: int
+                            Current y-coordinate of the mouse
+        &#34;&#34;&#34;
+
+        if self.isMousePressed:
+            self.cropBackground.coords(self.croppingRect, self.startSelectPosition[0], self.startSelectPosition[1],
+                                       xPos, yPos)
+            self.isSelectionStarted = True
+        elif self.isSelectionStarted:
+            self.isSelectionStarted = False
+            GuiUtils.clearLayout(self.window)
+            self.createDefaultLayout()
+            self.takeAScreenshot(self.startSelectPosition[0], self.startSelectPosition[1], xPos, yPos)
+            self.mouseListener.stop()
+
+    def onMouseClick(self, mouse_position_x: int, mouse_position_y: int, button: mouse.Button, is_pressed: bool):
+        &#34;&#34;&#34;Handles the mouse click event.
+
+                       Parameters
+                       ----------
+                       :param mouse_position_x: int
+                           x-coordinate of the mouse click
+                       :param mouse_position_y: int
+                           y-coordinate of the mouse click
+                       :param button: mouse.Button
+                            element that was clicked
+                       :param is_pressed: bool
+                           Indicates if the button is pressed
+        &#34;&#34;&#34;
+
+        if button == button.left:
+            self.isMousePressed = is_pressed
+
+            if is_pressed:
+                self.startSelectPosition = (mouse_position_x, mouse_position_y)
+
+    def takeACropScreenshot(self):
+        &#34;&#34;&#34;Prepares the interface for taking a cropped screenshot.&#34;&#34;&#34;
+
+        GuiUtils.clearLayout(self.window)
+
+        self.window.overrideredirect(True)
+        self.window.wm_state(&#34;zoomed&#34;)
+        screen_width = self.window.winfo_screenwidth()
+        screen_height = self.window.winfo_screenheight()
+
+        self.window.geometry(f&#34;{screen_width}x{screen_height}+0+0&#34;)
+        self.cropBackground.configure(bg=&#34;white&#34;)
+        self.cropBackground.coords(self.croppingRect, 0, 0, 0, 0)
+        self.cropBackground.pack()
+
+        self.window.config(bg=&#34;white&#34;)
+        self.window.attributes(&#34;-alpha&#34;, 0.25)
+
+        self.startMouseEvent()
+
+    def loadImage(self):
+        &#34;&#34;&#34;Loads an image from memory.&#34;&#34;&#34;
+
+        self.takeAScreenshot(0, 0, 0, 0)
+
+    def startEdit(self, button: Button):
+        &#34;&#34;&#34;Starts the editing loop.
+
+                        Parameters
+                        ----------
+                        :param button: Button
+                            Element that triggered this function
+         &#34;&#34;&#34;
+
+        if self.lastScreenshot is not None:
+            self.scannerService.startScanner()
+            self.editLoopStopper = False
+            button.config(text=&#34;Stop Edit&#34;, command=lambda: self.stopEdit(button))
+            self.editLoop()
+
+    def stopEdit(self, button: Button):
+        &#34;&#34;&#34;Stops the editing loop.
+
+                        Parameters
+                        ----------
+                        :param button: Button
+                            Element that triggered this function
+        &#34;&#34;&#34;
+
+        self.scannerService.stopScanner()
+        self.editLoopStopper = True
+        button.config(text=&#34;Start Edit&#34;, command=lambda: self.startEdit(button))
+
+    def editLoop(self):
+        &#34;&#34;&#34;Continuously updates the image being edited.&#34;&#34;&#34;
+
+        if self.editLoopStopper is True:
+            return
+
+        capturedImage = Image.fromarray(self.scannerService.getFinalImage())
+        mergedImages = Image.fromarray(self.scannerService.mergeImages(self.lastScreenshot, capturedImage))
+        self.lastDisplayedImage = mergedImages
+
+        GuiUtils.changeImage(mergedImages, self.imageComponent)
+        self.imageComponent.after(10, lambda: self.editLoop())
+
+    def startColorConfig(self, button: Button):
+        &#34;&#34;&#34;Starts the color configuration loop.
+
+                        Parameters
+                        ----------
+                        :param button: Button
+                            Element that triggered this function
+        &#34;&#34;&#34;
+
+        self.configLoopStopper = False
+        self.scannerService.startScanner()
+        button.config(text=&#34;Stop Config&#34;, command=lambda: self.stopColorConfig(button))
+        self.colorConfigLoop()
+
+    def stopColorConfig(self, button: Button):
+        &#34;&#34;&#34;Stops the color configuration loop.
+
+                        Parameters
+                        ----------
+                        :param button: Button
+                            Element that triggered this function
+        &#34;&#34;&#34;
+
+        self.scannerService.stopScanner()
+        self.configLoopStopper = True
+        button.config(text=&#34;Start Config&#34;, command=lambda: self.startColorConfig(button))
+
+    def colorConfigLoop(self):
+        &#34;&#34;&#34;Continuously updates the image for color configuration.&#34;&#34;&#34;
+
+        if self.configLoopStopper is True:
+            return
+
+        capturedImage = Image.fromarray(self.scannerService.getColorsImage(self.colorValues[0], self.colorValues[1]))
+        GuiUtils.changeImage(capturedImage, self.imageComponent)
+        self.imageComponent.after(10, lambda: self.colorConfigLoop())</code></pre>
+</details>
+<h3>Methods</h3>
+<dl>
+<dt id="app.GUI.colorConfigLoop"><code class="name flex">
+<span>def <span class="ident">colorConfigLoop</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Continuously updates the image for color configuration.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def colorConfigLoop(self):
+    &#34;&#34;&#34;Continuously updates the image for color configuration.&#34;&#34;&#34;
+
+    if self.configLoopStopper is True:
+        return
+
+    capturedImage = Image.fromarray(self.scannerService.getColorsImage(self.colorValues[0], self.colorValues[1]))
+    GuiUtils.changeImage(capturedImage, self.imageComponent)
+    self.imageComponent.after(10, lambda: self.colorConfigLoop())</code></pre>
+</details>
+</dd>
+<dt id="app.GUI.createDefaultLayout"><code class="name flex">
+<span>def <span class="ident">createDefaultLayout</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Creates the default layout for the application window.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def createDefaultLayout(self):
+    &#34;&#34;&#34;Creates the default layout for the application window.&#34;&#34;&#34;
+
+    self.window.overrideredirect(False)
+    self.window.wm_state(&#34;normal&#34;)
+    GuiUtils.centerOnStart(self.window, self.windowSize[0], self.windowSize[1])
+    frame: Frame = Frame(self.window)
+    frame.pack(side=BOTTOM)
+
+    self.imageComponent.config(highlightbackground=&#34;white&#34;, highlightcolor=&#34;white&#34;, highlightthickness=2)
+    self.imageComponent.pack(side=&#34;top&#34;, fill=&#34;x&#34;, expand=False)
+
+    screenSize = GuiUtils.getScreenSize()
+    takeButton = Button(frame, width=13, height=3, text=&#34;Take a screenshot&#34;,
+                        command=lambda: self.takeAScreenshot(0, 0, screenSize[0], screenSize[1]))
+    takeButton.grid(row=0, column=0, padx=5, pady=5)
+
+    cropButton = Button(frame, width=13, height=3, text=&#34;Crop screenshot&#34;, command=self.takeACropScreenshot)
+    cropButton.grid(row=0, column=1, padx=5, pady=5)
+
+    loadButton = Button(frame, width=13, height=3, text=&#34;Load screenshot&#34;, command=self.loadImage)
+    loadButton.grid(row=0, column=2, padx=5, pady=5)
+
+    editButton = Button(frame, width=13, height=3, text=&#34;Start Edit&#34;, command=lambda: self.startEdit(editButton))
+    editButton.grid(row=0, column=3, padx=5, pady=5)
+
+    saveButton = Button(frame, width=13, height=3, text=&#34;Save Screenshot&#34;,
+                        command=lambda: GuiUtils.saveImage(self.lastDisplayedImage))
+    saveButton.grid(row=0, column=4, padx=5, pady=5)
+
+    configureButton = Button(frame, width=13, height=3, text=&#34;Start Config&#34;,
+                             command=lambda: self.startColorConfig(configureButton))
+    configureButton.grid(row=0, column=5, padx=5, pady=5)
+
+    saveConfigButton = Button(frame, width=13, height=3, text=&#34;Save Config&#34;, command=self.saveConfig)
+    saveConfigButton.grid(row=0, column=6, padx=5, pady=5)
+
+    s1 = Scale(frame, from_=0, to=179, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 0))
+    s1.set(self.colorValues[0][0])
+    s1.grid(row=0, column=7, padx=5, pady=5)
+
+    s2 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 1))
+    s2.set(self.colorValues[0][1])
+    s2.grid(row=1, column=7, padx=5, pady=5)
+
+    s3 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 2))
+    s3.set(self.colorValues[0][2])
+    s3.grid(row=0, column=8, padx=5, pady=5)
+
+    s4 = Scale(frame, from_=0, to=179, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 3))
+    s4.set(self.colorValues[1][0])
+    s4.grid(row=1, column=8, padx=5, pady=5)
+
+    s5 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 4))
+    s5.set(self.colorValues[1][1])
+    s5.grid(row=0, column=9, padx=5, pady=5)
+
+    s6 = Scale(frame, from_=0, to=255, orient=HORIZONTAL, command=lambda v: self.onSliderChange(v, 5))
+    s6.set(self.colorValues[1][2])
+    s6.grid(row=1, column=9, padx=5, pady=5)
+
+    self.window.config(bg=&#34;systemWindowBackgroundColor&#34;)
+    self.window.attributes(&#34;-alpha&#34;, 1)</code></pre>
+</details>
+</dd>
+<dt id="app.GUI.editLoop"><code class="name flex">
+<span>def <span class="ident">editLoop</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Continuously updates the image being edited.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def editLoop(self):
+    &#34;&#34;&#34;Continuously updates the image being edited.&#34;&#34;&#34;
+
+    if self.editLoopStopper is True:
+        return
+
+    capturedImage = Image.fromarray(self.scannerService.getFinalImage())
+    mergedImages = Image.fromarray(self.scannerService.mergeImages(self.lastScreenshot, capturedImage))
+    self.lastDisplayedImage = mergedImages
+
+    GuiUtils.changeImage(mergedImages, self.imageComponent)
+    self.imageComponent.after(10, lambda: self.editLoop())</code></pre>
+</details>
+</dd>
+<dt id="app.GUI.loadImage"><code class="name flex">
+<span>def <span class="ident">loadImage</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Loads an image from memory.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def loadImage(self):
+    &#34;&#34;&#34;Loads an image from memory.&#34;&#34;&#34;
+
+    self.takeAScreenshot(0, 0, 0, 0)</code></pre>
+</details>
+</dd>
+<dt id="app.GUI.onMouseClick"><code class="name flex">
+<span>def <span class="ident">onMouseClick</span></span>(<span>self, mouse_position_x: int, mouse_position_y: int, button: pynput.mouse._darwin.Button, is_pressed: bool)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Handles the mouse click event.</p>
+<h2 id="parameters">Parameters</h2>
+<p>:param mouse_position_x: int
+x-coordinate of the mouse click
+:param mouse_position_y: int
+y-coordinate of the mouse click
+:param button: mouse.Button
+element that was clicked
+:param is_pressed: bool
+Indicates if the button is pressed</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def onMouseClick(self, mouse_position_x: int, mouse_position_y: int, button: mouse.Button, is_pressed: bool):
+    &#34;&#34;&#34;Handles the mouse click event.
+
+                   Parameters
+                   ----------
+                   :param mouse_position_x: int
+                       x-coordinate of the mouse click
+                   :param mouse_position_y: int
+                       y-coordinate of the mouse click
+                   :param button: mouse.Button
+                        element that was clicked
+                   :param is_pressed: bool
+                       Indicates if the button is pressed
+    &#34;&#34;&#34;
+
+    if button == button.left:
+        self.isMousePressed = is_pressed
+
+        if is_pressed:
+            self.startSelectPosition = (mouse_position_x, mouse_position_y)</code></pre>
+</details>
+</dd>
+<dt id="app.GUI.onMouseMove"><code class="name flex">
+<span>def <span class="ident">onMouseMove</span></span>(<span>self, xPos: int, yPos: int)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Handles the mouse move event for cropping.</p>
+<h2 id="parameters">Parameters</h2>
+<p>:param xPos: int
+Current x-coordinate of the mouse
+:param yPos: int
+Current y-coordinate of the mouse</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def onMouseMove(self, xPos: int, yPos: int):
+    &#34;&#34;&#34;Handles the mouse move event for cropping.
+
+                    Parameters
+                    ----------
+                    :param xPos: int
+                        Current x-coordinate of the mouse
+                    :param yPos: int
+                        Current y-coordinate of the mouse
+    &#34;&#34;&#34;
+
+    if self.isMousePressed:
+        self.cropBackground.coords(self.croppingRect, self.startSelectPosition[0], self.startSelectPosition[1],
+                                   xPos, yPos)
+        self.isSelectionStarted = True
+    elif self.isSelectionStarted:
+        self.isSelectionStarted = False
+        GuiUtils.clearLayout(self.window)
+        self.createDefaultLayout()
+        self.takeAScreenshot(self.startSelectPosition[0], self.startSelectPosition[1], xPos, yPos)
+        self.mouseListener.stop()</code></pre>
+</details>
+</dd>
+<dt id="app.GUI.onSliderChange"><code class="name flex">
+<span>def <span class="ident">onSliderChange</span></span>(<span>self, value, position)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Updates color values based on slider change</p>
+<h2 id="parameters">Parameters</h2>
+<p>:param value: int
+New value from the slider
+:param position: int
+Position/index of the slider</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def onSliderChange(self, value, position):
+    &#34;&#34;&#34;Updates color values based on slider change
+
+                    Parameters
+                    ----------
+                    :param value: int
+                        New value from the slider
+                    :param position: int
+                        Position/index of the slider
+    &#34;&#34;&#34;
+
+    if position &lt; 3:
+        self.colorValues[0][position] = value
+    else:
+        self.colorValues[1][position - 3] = value</code></pre>
+</details>
+</dd>
+<dt id="app.GUI.saveConfig"><code class="name flex">
+<span>def <span class="ident">saveConfig</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Saves the current color configuration to a file.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def saveConfig(self):
+    &#34;&#34;&#34;Saves the current color configuration to a file.&#34;&#34;&#34;
+
+    np.save(&#39;./resources/colors&#39;, self.colorValues)</code></pre>
+</details>
+</dd>
+<dt id="app.GUI.startColorConfig"><code class="name flex">
+<span>def <span class="ident">startColorConfig</span></span>(<span>self, button: tkinter.Button)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Starts the color configuration loop.</p>
+<h2 id="parameters">Parameters</h2>
+<p>:param button: Button
+Element that triggered this function</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def startColorConfig(self, button: Button):
+    &#34;&#34;&#34;Starts the color configuration loop.
+
+                    Parameters
+                    ----------
+                    :param button: Button
+                        Element that triggered this function
+    &#34;&#34;&#34;
+
+    self.configLoopStopper = False
+    self.scannerService.startScanner()
+    button.config(text=&#34;Stop Config&#34;, command=lambda: self.stopColorConfig(button))
+    self.colorConfigLoop()</code></pre>
+</details>
+</dd>
+<dt id="app.GUI.startEdit"><code class="name flex">
+<span>def <span class="ident">startEdit</span></span>(<span>self, button: tkinter.Button)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Starts the editing loop.</p>
+<h2 id="parameters">Parameters</h2>
+<p>:param button: Button
+Element that triggered this function</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def startEdit(self, button: Button):
+    &#34;&#34;&#34;Starts the editing loop.
+
+                    Parameters
+                    ----------
+                    :param button: Button
+                        Element that triggered this function
+     &#34;&#34;&#34;
+
+    if self.lastScreenshot is not None:
+        self.scannerService.startScanner()
+        self.editLoopStopper = False
+        button.config(text=&#34;Stop Edit&#34;, command=lambda: self.stopEdit(button))
+        self.editLoop()</code></pre>
+</details>
+</dd>
+<dt id="app.GUI.startMouseEvent"><code class="name flex">
+<span>def <span class="ident">startMouseEvent</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Starts listening to mouse events.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def startMouseEvent(self):
+    &#34;&#34;&#34;Starts listening to mouse events.&#34;&#34;&#34;
+
+    self.mouseListener = mouse.Listener(on_move=self.onMouseMove, on_click=self.onMouseClick)
+    self.mouseListener.start()</code></pre>
+</details>
+</dd>
+<dt id="app.GUI.stopColorConfig"><code class="name flex">
+<span>def <span class="ident">stopColorConfig</span></span>(<span>self, button: tkinter.Button)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Stops the color configuration loop.</p>
+<h2 id="parameters">Parameters</h2>
+<p>:param button: Button
+Element that triggered this function</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stopColorConfig(self, button: Button):
+    &#34;&#34;&#34;Stops the color configuration loop.
+
+                    Parameters
+                    ----------
+                    :param button: Button
+                        Element that triggered this function
+    &#34;&#34;&#34;
+
+    self.scannerService.stopScanner()
+    self.configLoopStopper = True
+    button.config(text=&#34;Start Config&#34;, command=lambda: self.startColorConfig(button))</code></pre>
+</details>
+</dd>
+<dt id="app.GUI.stopEdit"><code class="name flex">
+<span>def <span class="ident">stopEdit</span></span>(<span>self, button: tkinter.Button)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Stops the editing loop.</p>
+<h2 id="parameters">Parameters</h2>
+<p>:param button: Button
+Element that triggered this function</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def stopEdit(self, button: Button):
+    &#34;&#34;&#34;Stops the editing loop.
+
+                    Parameters
+                    ----------
+                    :param button: Button
+                        Element that triggered this function
+    &#34;&#34;&#34;
+
+    self.scannerService.stopScanner()
+    self.editLoopStopper = True
+    button.config(text=&#34;Start Edit&#34;, command=lambda: self.startEdit(button))</code></pre>
+</details>
+</dd>
+<dt id="app.GUI.takeACropScreenshot"><code class="name flex">
+<span>def <span class="ident">takeACropScreenshot</span></span>(<span>self)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Prepares the interface for taking a cropped screenshot.</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def takeACropScreenshot(self):
+    &#34;&#34;&#34;Prepares the interface for taking a cropped screenshot.&#34;&#34;&#34;
+
+    GuiUtils.clearLayout(self.window)
+
+    self.window.overrideredirect(True)
+    self.window.wm_state(&#34;zoomed&#34;)
+    screen_width = self.window.winfo_screenwidth()
+    screen_height = self.window.winfo_screenheight()
+
+    self.window.geometry(f&#34;{screen_width}x{screen_height}+0+0&#34;)
+    self.cropBackground.configure(bg=&#34;white&#34;)
+    self.cropBackground.coords(self.croppingRect, 0, 0, 0, 0)
+    self.cropBackground.pack()
+
+    self.window.config(bg=&#34;white&#34;)
+    self.window.attributes(&#34;-alpha&#34;, 0.25)
+
+    self.startMouseEvent()</code></pre>
+</details>
+</dd>
+<dt id="app.GUI.takeAScreenshot"><code class="name flex">
+<span>def <span class="ident">takeAScreenshot</span></span>(<span>self, fromX: int, fromY: int, toX: int, toY: int)</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Takes a screenshot of the specified area.</p>
+<h2 id="parameters">Parameters</h2>
+<p>:param fromX: int
+Starting x-coordinate for the screenshot
+:param fromY: int
+Starting y-coordinate for the screenshot
+:param toX: int
+Ending x-coordinate for the screenshot
+:param toY: int
+Ending y-coordinate for the screenshot</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def takeAScreenshot(self, fromX: int, fromY: int, toX: int, toY: int):
+    &#34;&#34;&#34;Takes a screenshot of the specified area.
+
+                    Parameters
+                    ----------
+                    :param fromX: int
+                        Starting x-coordinate for the screenshot
+                    :param fromY: int
+                        Starting y-coordinate for the screenshot
+                    :param toX: int
+                        Ending x-coordinate for the screenshot
+                    :param toY: int
+                        Ending y-coordinate for the screenshot
+    &#34;&#34;&#34;
+
+    self.lastScreenshot = self.screenshotService.take(fromX, fromY, toX, toY)
+    GuiUtils.changeImage(self.lastScreenshot, self.imageComponent)</code></pre>
+</details>
+</dd>
+<dt id="app.GUI.updateScreenshotSize"><code class="name flex">
+<span>def <span class="ident">updateScreenshotSize</span></span>(<span>self, event: {})</span>
+</code></dt>
+<dd>
+<div class="desc"><p>Updates displayed screenshot size according to window size</p>
+<h2 id="parameters">Parameters</h2>
+<p>:param event: dict
+Passed by default</p></div>
+<details class="source">
+<summary>
+<span>Expand source code</span>
+</summary>
+<pre><code class="python">def updateScreenshotSize(self, event: {}):
+    &#34;&#34;&#34;Updates displayed screenshot size according to window size
+
+            Parameters
+            ----------
+            :param event: dict
+                Passed by default
+    &#34;&#34;&#34;
+
+    self.imageComponent.configure(height=event.width)
+    if self.lastScreenshot.width != 0:
+        img = GuiUtils.resizeImageToParentSize(self.lastScreenshot, self.imageComponent.winfo_width(),
+                                               self.imageComponent.winfo_height())
+        GuiUtils.changeImage(img, self.imageComponent)</code></pre>
+</details>
+</dd>
+</dl>
+</dd>
+</dl>
+</section>
+</article>
+<nav id="sidebar">
+<h1>Index</h1>
+<div class="toc">
+<ul></ul>
+</div>
+<ul id="index">
+<li><h3><a href="#header-classes">Classes</a></h3>
+<ul>
+<li>
+<h4><code><a title="app.GUI" href="#app.GUI">GUI</a></code></h4>
+<ul class="">
+<li><code><a title="app.GUI.colorConfigLoop" href="#app.GUI.colorConfigLoop">colorConfigLoop</a></code></li>
+<li><code><a title="app.GUI.createDefaultLayout" href="#app.GUI.createDefaultLayout">createDefaultLayout</a></code></li>
+<li><code><a title="app.GUI.editLoop" href="#app.GUI.editLoop">editLoop</a></code></li>
+<li><code><a title="app.GUI.loadImage" href="#app.GUI.loadImage">loadImage</a></code></li>
+<li><code><a title="app.GUI.onMouseClick" href="#app.GUI.onMouseClick">onMouseClick</a></code></li>
+<li><code><a title="app.GUI.onMouseMove" href="#app.GUI.onMouseMove">onMouseMove</a></code></li>
+<li><code><a title="app.GUI.onSliderChange" href="#app.GUI.onSliderChange">onSliderChange</a></code></li>
+<li><code><a title="app.GUI.saveConfig" href="#app.GUI.saveConfig">saveConfig</a></code></li>
+<li><code><a title="app.GUI.startColorConfig" href="#app.GUI.startColorConfig">startColorConfig</a></code></li>
+<li><code><a title="app.GUI.startEdit" href="#app.GUI.startEdit">startEdit</a></code></li>
+<li><code><a title="app.GUI.startMouseEvent" href="#app.GUI.startMouseEvent">startMouseEvent</a></code></li>
+<li><code><a title="app.GUI.stopColorConfig" href="#app.GUI.stopColorConfig">stopColorConfig</a></code></li>
+<li><code><a title="app.GUI.stopEdit" href="#app.GUI.stopEdit">stopEdit</a></code></li>
+<li><code><a title="app.GUI.takeACropScreenshot" href="#app.GUI.takeACropScreenshot">takeACropScreenshot</a></code></li>
+<li><code><a title="app.GUI.takeAScreenshot" href="#app.GUI.takeAScreenshot">takeAScreenshot</a></code></li>
+<li><code><a title="app.GUI.updateScreenshotSize" href="#app.GUI.updateScreenshotSize">updateScreenshotSize</a></code></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav>
+</main>
+<footer id="footer">
+<p>Generated by <a href="https://pdoc3.github.io/pdoc" title="pdoc: Python API documentation generator"><cite>pdoc</cite> 0.10.0</a>.</p>
+</footer>
+</body>
+</html>

@@ -1,8 +1,8 @@
 from tkinter import Tk, Image, Label, Button, Canvas, Frame, BOTTOM, Scale, HORIZONTAL
 from PIL import Image
-from live_scanner.modules.guiUtils import GuiUtils
-from live_scanner.modules.screenshotService import ScreenshotService as ScreenshotService
-from live_scanner.modules.scannerservice import ScannerService
+from project.modules.guiUtils import GuiUtils
+from project.modules.screenshotService import ScreenshotService as ScreenshotService
+from project.modules.scannerService import ScannerService
 from pynput import mouse
 import numpy as np
 
@@ -99,7 +99,7 @@ class GUI:
         self.isMousePressed: bool = False
         self.isSelectionStarted: bool = False
 
-        self.colorValues: [np.array, np.array] = np.load('./resources/colors.npy')
+        self.colorValues: [np.array, np.array] = np.load('resources/colors.npy')
         self.screenshotService: ScreenshotService = ScreenshotService(self.window, self.imageComponent)
         self.scannerService: ScannerService = ScannerService(self.colorValues)
         self.mouseListener: mouse.Listener = mouse.Listener()
@@ -380,4 +380,5 @@ class GUI:
         self.imageComponent.after(10, lambda: self.colorConfigLoop())
 
 
-gui = GUI()
+if __name__ == "__main__":
+    gui = GUI()

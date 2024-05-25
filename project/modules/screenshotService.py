@@ -1,7 +1,7 @@
 from tkinter import Tk, Label
 import mss
 from PIL import Image
-from live_scanner.modules.guiUtils import GuiUtils
+from project.modules.guiUtils import GuiUtils
 
 
 class ScreenshotService:
