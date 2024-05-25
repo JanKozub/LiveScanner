@@ -1,6 +1,6 @@
 from tkinter import Tk, Image, Label, Button, Canvas, Frame, BOTTOM, Scale, HORIZONTAL
 from PIL import Image
-from live_scanner.modules import guiUtils
+from live_scanner.modules.guiUtils import GuiUtils
 from live_scanner.modules.screenshotService import ScreenshotService as ScreenshotService
 from live_scanner.modules.scannerservice import ScannerService
 from pynput import mouse
@@ -83,10 +83,9 @@ class GUI:
         """
 
     def __init__(self):
-
         self.window: Tk = Tk()
         self.windowSize: tuple[int, int] = \
-            (int(1800 * guiUtils.getScreenScale(self.window)), int(1400 * guiUtils.getScreenScale(self.window)))
+            (int(1800 * GuiUtils.getScreenScale(self.window)), int(1400 * GuiUtils.getScreenScale(self.window)))
         self.lastScreenshot: Image = Image.new('RGB', (0, 0))
         self.lastDisplayedImage: Image = Image.new('RGB', (0, 0))
 
@@ -121,9 +120,9 @@ class GUI:
 
         self.imageComponent.configure(height=event.width)
         if self.lastScreenshot.width != 0:
-            img = guiUtils.resizeImageToParentSize(self.lastScreenshot, self.imageComponent.winfo_width(),
+            img = GuiUtils.resizeImageToParentSize(self.lastScreenshot, self.imageComponent.winfo_width(),
                                                    self.imageComponent.winfo_height())
-            guiUtils.changeImage(img, self.imageComponent)
+            GuiUtils.changeImage(img, self.imageComponent)
 
     def onSliderChange(self, value, position):
         """Updates color values based on slider change
@@ -151,14 +150,14 @@ class GUI:
 
         self.window.overrideredirect(False)
         self.window.wm_state("normal")
-        guiUtils.centerOnStart(self.window, self.windowSize[0], self.windowSize[1])
+        GuiUtils.centerOnStart(self.window, self.windowSize[0], self.windowSize[1])
         frame: Frame = Frame(self.window)
         frame.pack(side=BOTTOM)
 
         self.imageComponent.config(highlightbackground="white", highlightcolor="white", highlightthickness=2)
         self.imageComponent.pack(side="top", fill="x", expand=False)
 
-        screenSize = guiUtils.getScreenSize()
+        screenSize = GuiUtils.getScreenSize()
         takeButton = Button(frame, width=13, height=3, text="Take a screenshot",
                             command=lambda: self.takeAScreenshot(0, 0, screenSize[0], screenSize[1]))
         takeButton.grid(row=0, column=0, padx=5, pady=5)
@@ -173,7 +172,7 @@ class GUI:
         editButton.grid(row=0, column=3, padx=5, pady=5)
 
         saveButton = Button(frame, width=13, height=3, text="Save Screenshot",
-                            command=lambda: guiUtils.saveImage(self.lastDisplayedImage))
+                            command=lambda: GuiUtils.saveImage(self.lastDisplayedImage))
         saveButton.grid(row=0, column=4, padx=5, pady=5)
 
         configureButton = Button(frame, width=13, height=3, text="Start Config",
@@ -232,7 +231,7 @@ class GUI:
         """
 
         self.lastScreenshot = self.screenshotService.take(fromX, fromY, toX, toY)
-        guiUtils.changeImage(self.lastScreenshot, self.imageComponent)
+        GuiUtils.changeImage(self.lastScreenshot, self.imageComponent)
 
     def onMouseMove(self, xPos: int, yPos: int):
         """Handles the mouse move event for cropping.
@@ -251,7 +250,7 @@ class GUI:
             self.isSelectionStarted = True
         elif self.isSelectionStarted:
             self.isSelectionStarted = False
-            guiUtils.clearLayout(self.window)
+            GuiUtils.clearLayout(self.window)
             self.createDefaultLayout()
             self.takeAScreenshot(self.startSelectPosition[0], self.startSelectPosition[1], xPos, yPos)
             self.mouseListener.stop()
@@ -280,7 +279,7 @@ class GUI:
     def takeACropScreenshot(self):
         """Prepares the interface for taking a cropped screenshot."""
 
-        guiUtils.clearLayout(self.window)
+        GuiUtils.clearLayout(self.window)
 
         self.window.overrideredirect(True)
         self.window.wm_state("zoomed")
@@ -340,7 +339,7 @@ class GUI:
         mergedImages = Image.fromarray(self.scannerService.mergeImages(self.lastScreenshot, capturedImage))
         self.lastDisplayedImage = mergedImages
 
-        guiUtils.changeImage(mergedImages, self.imageComponent)
+        GuiUtils.changeImage(mergedImages, self.imageComponent)
         self.imageComponent.after(10, lambda: self.editLoop())
 
     def startColorConfig(self, button: Button):
@@ -377,7 +376,7 @@ class GUI:
             return
 
         capturedImage = Image.fromarray(self.scannerService.getColorsImage(self.colorValues[0], self.colorValues[1]))
-        guiUtils.changeImage(capturedImage, self.imageComponent)
+        GuiUtils.changeImage(capturedImage, self.imageComponent)
         self.imageComponent.after(10, lambda: self.colorConfigLoop())
 
 
