@@ -1,7 +1,7 @@
 # Live Scanner Project
 
 ## Overview
-
+![screenshot from the project](/project/resources/1.jpeg)
 This project is a simple screenshot software that implements a functionality of drawing on the screenshot by moving a pen in front of a camera.
 
 ## 1. app.py
