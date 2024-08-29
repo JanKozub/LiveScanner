@@ -1,4 +1,5 @@
 from tkinter import Tk, Image, Label, Button, Canvas, Frame, BOTTOM, Scale, HORIZONTAL
+from tkinter import filedialog as fd
 from PIL import Image
 from project.modules.guiUtils import GuiUtils
 from project.modules.screenshotService import ScreenshotService as ScreenshotService
@@ -298,8 +299,8 @@ class GUI:
 
     def loadImage(self):
         """Loads an image from memory."""
-
-        self.takeAScreenshot(0, 0, 0, 0)
+        filename = fd.askopenfilename()
+        GuiUtils.changeImage(Image.open(filename), self.imageComponent)
 
     def startEdit(self, button: Button):
         """Starts the editing loop.
